@@ -6,8 +6,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">
                         <div class="text HeadingLg semibold">Delivery in 8 minutes</div>
-                        <div class="text-tertiary BodyMd Regular">Sector 14, Gurugram, Haryana 12</div>
+                        <div *ngIf="currentLocation" class="text-tertiary BodyMd Regular">{{currentLocation.city}} {{currentLocation?.state}} {{currentLocation?.zip_code}}</div>
                     </a>
+                    <span class="icon icon-edit" (click)="openHomePageGoogleAddressModal()">edit</span>
                 </li>
                 <li class="nav-item mobile_content my-auto">
                     <a class="nav-link " aria-current="page" href="#">
@@ -37,3 +38,17 @@
         </div>
     </div>
 </nav>
+
+<div class="location-modal modal fade" id="homePageGoogleAddressModal" tabindex="-1" role="dialog" aria-labelledby="eventModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+        <div class="card-modal-header">
+            <button type="button" class="close1" data-bs-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-card-body" >
+            <h4> Please select your location </h4>
+            <input class="form-control search-box-text" type="text" [(ngModel)]="autocompleteInput" #addresstext>
+        </div>
+        </div>
+    </div>
+</div>

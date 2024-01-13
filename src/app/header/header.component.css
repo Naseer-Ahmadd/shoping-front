@@ -1,0 +1,63 @@
+.location-modal.modal {
+    /* z-index: 9999; */
+    z-index: 1050
+  }
+
+.location-modal.modal .modal-dialog {
+    max-width: 500px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 40%;
+    transform: translateY(-50%);
+
+@media (max-width: 767px) {
+    width: 95%;
+}
+
+.modal-content {
+    padding: 40px 20px;
+    min-height: 200px;
+
+    .card-modal-header {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    button {
+        background: red;
+        border: none;
+        height: 25px;
+        font-size: 20px;
+        color: #fff;
+        width: 25px;
+        line-height: 25px;
+    }
+    }
+}
+
+.modal-card-body {
+    .search-box-text {
+    @media (max-width: 767px) {
+        font-size: 16px;
+    }
+    }
+}
+}
+
+.pac-container {
+    z-index: 99 !important;
+  }
+  
+
+  .modal-dialog {
+    max-height: 80vh; /* Adjust the value as needed */
+  }
+  .modal-body {
+    overflow-y: auto;
+  }
+  .modal {
+    z-index: 1050; /* or a higher value depending on your layout */
+  }
+      
