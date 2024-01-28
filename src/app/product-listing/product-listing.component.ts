@@ -12,6 +12,7 @@ export class ProductListingComponent implements OnInit {
   products:any = []
   activeCategory: any;
   CatId:any;
+  subCategories:any=[]
   constructor(private activatedRoute: ActivatedRoute,private catService: CategoriesService) {
     this.CatId = this.activatedRoute.snapshot.queryParamMap.get('catId');
    }
@@ -19,18 +20,40 @@ export class ProductListingComponent implements OnInit {
   ngOnInit(): void {
     this.getCategories()
     if(this.CatId){
-      this.getAllproducts(Number(this.CatId))
+      this.getSubCategories(this.CatId)
     }else{
-      this.getAllproducts(12)
+      this.CatId=12
+      this.getSubCategories(this.CatId.toString())
     }
+
+    this.getProductsbyChildCatId(957)
   }
 
+  getSubCategories(parentCatId){
+  console.log('parentCatId :', parentCatId);
+    this.catService.getSubCategoryById(parentCatId)
+    .then((SubCategories) => {
+    console.log('SubCategories :', SubCategories);
+    this.subCategories = SubCategories
+    })
+  }
+  
   getAllproducts(parentCatId){
     this.catService.getDocumentsByParentCategoryID(parentCatId)
     .then((Products) => {
-    // console.log('Products :', Products);
+    console.log('Products :', Products);
     this.products = Products
     })
+  }
+
+  getProductsbyChildCatId(id){
+  console.log('id :', id);
+  console.log('id :', typeof id);
+  this.catService.getDocumentsByChildCategoryID(Number(id))
+  .then((Products) => {
+  console.log('Productsss :', Products);
+  this.products = Products
+  })
   }
 
   getCategories(){

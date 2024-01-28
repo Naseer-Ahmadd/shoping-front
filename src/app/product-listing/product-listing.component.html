@@ -3,28 +3,28 @@
         <div class="product_category_tab mb-2">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" (click)="getAllproducts(1487)">Vegetables & Fruits</a>
+                    <a class="nav-link" aria-current="page" (click)="getSubCategories('1487')">Vegetables & Fruits</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" (click)="getAllproducts(163)">Personal Care</a>
+                    <a class="nav-link" (click)="getSubCategories('163')">Personal Care</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-disabled="true" (click)="getAllproducts(1273)">Munchies</a>
+                    <a class="nav-link" aria-disabled="true" (click)="getSubCategories('1273')">Munchies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-disabled="true" (click)="getAllproducts(332)">Cold Drinks & Juices</a>
+                    <a class="nav-link" aria-disabled="true" (click)="getSubCategories('332')">Cold Drinks & Juices</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-disabled="true" (click)="getAllproducts(287)">Pharma & Wellness</a>
+                    <a class="nav-link" aria-disabled="true" (click)="getSubCategories('287')">Pharma & Wellness</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-disabled="true" (click)="getAllproducts(12)">Tea, Coffee & Health Drinks</a>
+                    <a class="nav-link" aria-disabled="true" (click)="getSubCategories('12')">Tea, Coffee & Health Drinks</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-disabled="true" (click)="getAllproducts(888)">Bakery & Biscuits</a>
+                    <a class="nav-link" aria-disabled="true" (click)="getSubCategories('888')">Bakery & Biscuits</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-disabled="true" (click)="getAllproducts(229)">Paan Corner</a>
+                    <a class="nav-link" aria-disabled="true" (click)="getSubCategories('229')">Paan Corner</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
@@ -48,8 +48,8 @@
                 <div class="frame product_category">
                     <div class="category_list">
                         <div class="list-group">
-                            <ng-container *ngFor="let catgory of allCategories">
-                                <div (click)="getProducts(catgory.deeplink); setActiveCategory(catgory)" [class.active]="catgory === activeCategory" class="list-group-item list-group-item-action" aria-current="true" >
+                            <ng-container *ngFor="let catgory of subCategories.subCats">
+                                <div (click)="getProductsbyChildCatId(catgory.id); setActiveCategory(catgory)" [class.active]="catgory === activeCategory" class="list-group-item list-group-item-action" aria-current="true" >
                                     <div class="frame column-gap_20">
                                         <img src="{{catgory.image}}">
                                         <div class="my-auto BodyMd Regular">{{catgory.name}}</div>

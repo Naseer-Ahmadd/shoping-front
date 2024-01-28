@@ -28,6 +28,10 @@ export class CategoriesService {
     return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Category));
   }
 
+  async getSubCategoryById(categoryId: string): Promise<Category | null> {
+    const doc = await this.getCategoriesCollection.doc(categoryId).get();
+    return doc.exists ? ({ id: doc.id, ...doc.data() } as Category) : null;
+  }
 
   async getDocumentsByParentCategoryID(parentCategoryID: number): Promise<Product[]> {
     const querySnapshot = await this.db.collection('Products').where('parentCategoryID', '==', parentCategoryID).limit(10).get();
@@ -39,7 +43,15 @@ export class CategoriesService {
     return products;
   }
   
-
+  async getDocumentsByChildCategoryID(childCategoryID: number): Promise<Product[]> {
+    const querySnapshot = await this.db.collection('Products').where('childCategoryID', '==', childCategoryID).limit(10).get();
+    const products: Product[] = [];
+    querySnapshot.forEach((doc) => {
+      const productData = doc.data() as Product;
+      products.push(productData);
+    });
+    return products;
+  }
 
 
 

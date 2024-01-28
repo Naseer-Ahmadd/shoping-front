@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "ganeshabhog-ca0fb"
-  }
+    "default": "ganesh-bhog",
+    "ganesh-bhog": "ganesh-bhog"
+  },
+  "targets": {},
+  "etags": {}
 }
