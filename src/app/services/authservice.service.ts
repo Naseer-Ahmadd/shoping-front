@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthserviceService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private auth: AngularFireAuth) {}
 
   getCurrentLocation(): Observable<any> {
     if (window.navigator && window.navigator.geolocation) {
@@ -86,5 +86,9 @@ export class AuthserviceService {
       '&' +
       'key=AIzaSyCDqnApGzLPg4nLW5DrTC0hy7kCMnFLqxo';
     return this.http.get(url);
+  }
+
+  signOut() {
+    return this.auth.signOut();
   }
 }

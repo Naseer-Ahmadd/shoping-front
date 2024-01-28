@@ -3,25 +3,28 @@
         <div class="product_category_tab mb-2">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Vegetables & Fruits</a>
+                    <a class="nav-link" aria-current="page" (click)="getAllproducts(1487)">Vegetables & Fruits</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Vegetables & Fruits</a>
+                    <a class="nav-link" (click)="getAllproducts(163)">Personal Care</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-disabled="true">Munchies</a>
+                    <a class="nav-link" aria-disabled="true" (click)="getAllproducts(1273)">Munchies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-disabled="true">Cold Drinks & Juices</a>
+                    <a class="nav-link" aria-disabled="true" (click)="getAllproducts(332)">Cold Drinks & Juices</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-disabled="true">Instant & Frozen Food</a>
+                    <a class="nav-link" aria-disabled="true" (click)="getAllproducts(287)">Pharma & Wellness</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-disabled="true">Tea, Coffee & Health Drinks</a>
+                    <a class="nav-link" aria-disabled="true" (click)="getAllproducts(12)">Tea, Coffee & Health Drinks</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-disabled="true">Bakery & Biscuits</a>
+                    <a class="nav-link" aria-disabled="true" (click)="getAllproducts(888)">Bakery & Biscuits</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-disabled="true" (click)="getAllproducts(229)">Paan Corner</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
@@ -45,353 +48,31 @@
                 <div class="frame product_category">
                     <div class="category_list">
                         <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Milk</div>
+                            <ng-container *ngFor="let catgory of allCategories">
+                                <div (click)="getProducts(catgory.deeplink); setActiveCategory(catgory)" [class.active]="catgory === activeCategory" class="list-group-item list-group-item-action" aria-current="true" >
+                                    <div class="frame column-gap_20">
+                                        <img src="{{catgory.image}}">
+                                        <div class="my-auto BodyMd Regular">{{catgory.name}}</div>
+                                    </div>
                                 </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Bread & Pav</div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Eggs</div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Flakes & Kids Cereals</div>
-                                </div>
-                            </a>
-                            <a class="list-group-item list-group-item-action disabled" aria-disabled="true">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Muesli & Granola</div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Bread & Pav</div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Eggs</div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Flakes & Kids Cereals</div>
-                                </div>
-                            </a>
-                            <a class="list-group-item list-group-item-action disabled" aria-disabled="true">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Muesli & Granola</div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Bread & Pav</div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Eggs</div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Flakes & Kids Cereals</div>
-                                </div>
-                            </a>
-                            <a class="list-group-item list-group-item-action disabled" aria-disabled="true">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Muesli & Granola</div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Bread & Pav</div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Eggs</div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Flakes & Kids Cereals</div>
-                                </div>
-                            </a>
-                            <a class="list-group-item list-group-item-action disabled" aria-disabled="true">
-                                <div class="frame column-gap_20">
-                                    <img src="assets/images/product-1.png">
-                                    <div class="my-auto BodyMd Regular">Muesli & Granola</div>
-                                </div>
-                            </a>
+                            </ng-container>
                         </div>
                     </div>
                     <div class="product_list">
                         <div class="product_list_group pt-0">
-                            <div class="product_card">
-                                <a class="" href="">
-                                    <img src="assets/images/product-1.png" >
+                            <div class="product_card" *ngFor="let product of products">
+                                <a class="">
+                                    <img src="{{product.image_url}}" >
                                     <div class="product_content">
                                         <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
+                                            <div class="BodyMd Medium text pb-2">{{product.productName}}</div>
+                                            <div class="BodySm Regular">{{product.unit}}</div>
                                         </div>
                                         <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
+                                            <div class="BodySm semibold my-auto">₹{{product.price}}</div>
                                             <div class="my-auto">
                                                 <div class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity1')">Add</div>
                                                 <input id="quantity1" type="text" value="1" class="form-control" data-bts-min="1" data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="product_card">
-                                <a class="" href="">
-                                    <img src="assets/images/product-2.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <div class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity1')">Add</div>
-                                                <input id="quantity1" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="product_card">
-                                <a class="" href="">
-                                    <img src="assets/images/product-3.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <div class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity1')">Add</div>
-                                                <input id="quantity1" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="product_card">
-                                <a class="" href="">
-                                    <img src="assets/images/product-4.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <div class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity1')">Add</div>
-                                                <input id="quantity1" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="product_card">
-                                <a class="" href="">
-                                    <img src="assets/images/product-5.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <div class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity1')">Add</div>
-                                                <input id="quantity1" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="product_card">
-                                <a class="" href="">
-                                    <img src="assets/images/product-2.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <div class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity1')">Add</div>
-                                                <input id="quantity1" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="product_card">
-                                <a class="" href="">
-                                    <img src="assets/images/product-3.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <div class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity1')">Add</div>
-                                                <input id="quantity1" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="product_card">
-                                <a class="" href="">
-                                    <img src="assets/images/product-4.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <div class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity1')">Add</div>
-                                                <input id="quantity1" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="product_card">
-                                <a class="" href="">
-                                    <img src="assets/images/product-5.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <div class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity1')">Add</div>
-                                                <input id="quantity1" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="product_card">
-                                <a class="" href="">
-                                    <img src="assets/images/product-2.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <div class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity1')">Add</div>
-                                                <input id="quantity1" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="product_card">
-                                <a class="" href="">
-                                    <img src="assets/images/product-3.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <div class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity1')">Add</div>
-                                                <input id="quantity1" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="product_card">
-                                <a class="" href="">
-                                    <img src="assets/images/product-4.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <div class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity1')">Add</div>
-                                                <input id="quantity1" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="product_card">
-                                <a class="" href="">
-                                    <img src="assets/images/product-5.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <div class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity1')">Add</div>
-                                                <input id="quantity1" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
                                             </div>
                                         </div>
                                     </div>

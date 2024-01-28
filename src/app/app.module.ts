@@ -8,7 +8,13 @@ import { FooterComponent } from './footer/footer.component';
 import {HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from '../environments/environment';
+// import { NgxSpinnerModule } from "ngx-spinner";
+import { ToastrModule } from 'ngx-toastr';
+import { ProductListingModule } from './product-listing/product-listing.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,9 +23,18 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      timeOut: 4000, // 4 seconds
+      progressBar: true,
+    }),
+    ProductListingModule 
   ],
   providers: [
     HttpClient

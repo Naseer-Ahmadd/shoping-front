@@ -1,12 +1,36 @@
 <main>
     <div class="app_content">
         <div class="content_body">
+            <div class="bottom_bar">
+                <div class="item_list">
+                    <a class="item" href="#">
+                        <span class="material-symbols-outlined">
+                            home
+                        </span>
+                    </a>
+                    <a class="item" href="#">
+                        <span class="material-symbols-outlined">
+                            action_key
+                        </span>
+                    </a>
+                    <a class="item" href="#">
+                        <span class="material-symbols-outlined">
+                            shopping_cart
+                        </span>
+                    </a>
+                    <a class="item" href="#">
+                        <span class="material-symbols-outlined">
+                            account_circle
+                        </span>
+                    </a>
+                </div>
+            </div>
             <section>
                 <div class="hero_section">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="text-center">
-                                <img src="assets/images/main-banner.png">
+                            <div class="text-center banner mt-2">
+                                <img src="assets/images/main-banner2.jpeg" height="">
                             </div>
                         </div>
                     </div>
@@ -16,10 +40,10 @@
                 <div class="carousel_1">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img src="assets/images/carousel-1.png" alt="Slide 1"></div>
+                            <!-- <div class="swiper-slide"><img src="assets/images/carousel-1.png" alt="Slide 1"></div>
                             <div class="swiper-slide"><img src="assets/images/carousel-2.png" alt="Slide 2"></div>
                             <div class="swiper-slide"><img src="assets/images/carousel-3.png" alt="Slide 3"></div>
-                            <div class="swiper-slide"><img src="assets/images/carousel-4.png" alt="Slide 3"></div>
+                            <div class="swiper-slide"><img src="assets/images/carousel-4.png" alt="Slide 3"></div> -->
                             <!-- Add more swiper slides as needed -->
                         </div>
                         <!-- Add Pagination -->
@@ -29,63 +53,10 @@
             </section>
             <section>
                 <div class="category_1">
-                    <div class="grid">
-                        <img src="assets/images/category-1.png">
-                    </div>
-                    <div class="grid">
-                        <img src="assets/images/category-2.png">
-                    </div>
-                    <div class="grid">
-                        <img src="assets/images/category-3.png">
-                    </div>
-                    <div class="grid">
-                        <img src="assets/images/category-4.png">
-                    </div>
-                    <div class="grid">
-                        <img src="assets/images/category-5.png">
-                    </div>
-                    <div class="grid">
-                        <img src="assets/images/category-6.png">
-                    </div>
-                    <div class="grid">
-                        <img src="assets/images/category-7.png">
-                    </div>
-                    <div class="grid">
-                        <img src="assets/images/category-8.png">
-                    </div><div class="grid">
-                        <img src="assets/images/category-9.png">
-                    </div>
-                    <div class="grid">
-                        <img src="assets/images/category-10.png">
-                    </div><div class="grid">
-                        <img src="assets/images/category-11.png">
-                    </div>
-                    <div class="grid">
-                        <img src="assets/images/category-12.png">
-                    </div>
-                    <div class="grid">
-                        <img src="assets/images/category-13.png">
-                    </div><div class="grid">
-                        <img src="assets/images/category-14.png">
-                    </div>
-                    <div class="grid">
-                        <img src="assets/images/category-15.png">
-                    </div>
-                    <div class="grid">
-                        <img src="assets/images/category-16.png">
-                    </div>
-                    <div class="grid">
-                        <img src="assets/images/category-17.png">
-                    </div>
-                    <div class="grid">
-                        <img src="assets/images/category-18.png">
-                    </div>
-                    <div class="grid">
-                        <img src="assets/images/category-19.png">
-                    </div>
-                    <div class="grid">
-                        <img src="assets/images/category-20.png">
-                    </div>
+                    <div class="grid text-center" *ngFor="let cat of allCategories">
+                        <img src="{{cat.image}}" (click)="browseCat(cat.deeplink)">
+                        <p>{{cat.name}}</p>
+                    </div>  
                 </div>
                 <div class="text-center">
                     <button class="btn btn-outline-primary text-center" [routerLink]="['/products']">view more</button>
@@ -96,163 +67,19 @@
                 <div class="carousel_2 mb-4">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
+                            <div class="swiper-slide" *ngFor="let product of products">
                                 <div class="product_card">
-                                    <img src="assets/images/product-1.png">
+                                    <img src="{{product.image_url}}">
                                     <div class="product_content">
                                         <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
+                                            <div class="BodyMd Medium text pb-2">{{product.productName}}</div>
+                                            <div class="BodySm Regular">{{product.unit}}</div>
                                         </div>
                                         <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
+                                            <div class="BodySm semibold my-auto">₹{{product.price}}</div>
                                             <div class="my-auto">
                                                 <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity1')">Add</a>
                                                 <input id="quantity1" type="text" value="1" class="form-control" data-bts-min="1" data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-2.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity2')">Add</a>
-                                                <input id="quantity2" type="text" value="1" class="form-control" data-bts-min="1" data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-3.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity3')">Add</a>
-                                                <input id="quantity3" type="text" value="1" class="form-control" data-bts-min="1" data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-4.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity4')">Add</a>
-                                                <input id="quantity4" type="text" value="1" class="form-control" data-bts-min="1" data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-5.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity5')">Add</a>
-                                                <input id="quantity5" type="text" value="1" class="form-control" data-bts-min="1" data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-6.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity6')">Add</a>
-                                                <input id="quantity6" type="text" value="1" class="form-control" data-bts-min="1" data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-7.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity7')">Add</a>
-                                                <input id="quantity7" type="text" value="1" class="form-control" data-bts-min="1" data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-8.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity8')">Add</a>
-                                                <input id="quantity8" type="text" value="1" class="form-control" data-bts-min="1" data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-9.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity9')">Add</a>
-                                                <input id="quantity9" type="text" value="1" class="form-control" data-bts-min="1" data-bts-max="100">
                                             </div>
                                         </div>
                                     </div>
@@ -266,175 +93,23 @@
                 </div>
             </section>
             <section>
-                <h4 class="HeadingXl medium mb-3">Rolling paper & tobacco</h4>
+                <h4 class="HeadingXl medium mb-3">Dry Fruits, Masala & Oil</h4>
                 <div class="carousel_2 mb-4">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
+                            <div class="swiper-slide" *ngFor="let product of products2">
                                 <div class="product_card">
-                                    <img src="assets/images/product-1.png">
+                                    <img src="{{product.image_url}}">
                                     <div class="product_content">
                                         <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
+                                            <div class="BodyMd Medium text pb-2">{{product.productName}}</div>
+                                            <div class="BodySm Regular">{{product.unit}}</div>
                                         </div>
                                         <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
+                                            <div class="BodySm semibold my-auto">₹{{product.price}}</div>
                                             <div class="my-auto">
                                                 <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityB1')">Add</a>
                                                 <input id="quantityB1" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-2.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityB2')">Add</a>
-                                                <input id="quantityB2" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-3.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityB3')">Add</a>
-                                                <input id="quantityB3" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-4.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityB4')">Add</a>
-                                                <input id="quantityB4" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-5.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityB5')">Add</a>
-                                                <input id="quantityB5" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-6.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityB6')">Add</a>
-                                                <input id="quantityB6" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-7.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityB7')">Add</a>
-                                                <input id="quantityB7" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-8.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityB8')">Add</a>
-                                                <input id="quantityB8" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-9.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityB9')">Add</a>
-                                                <input id="quantityB9" type="text" value="1" class="form-control" data-bts-min="1"
                                                     data-bts-max="100">
                                             </div>
                                         </div>
@@ -453,171 +128,19 @@
                 <div class="carousel_2">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
+                            <div class="swiper-slide" *ngFor="let product of products3">
                                 <div class="product_card">
-                                    <img src="assets/images/product-1.png">
+                                    <img src="{{product.image_url}}">
                                     <div class="product_content">
                                         <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
+                                            <div class="BodyMd Medium text pb-2">{{product.productName}}</div>
+                                            <div class="BodySm Regular">{{product.unit}}</div>
                                         </div>
                                         <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
+                                            <div class="BodySm semibold my-auto">₹{{product.price}}</div>
                                             <div class="my-auto">
                                                 <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityC1')">Add</a>
                                                 <input id="quantityC1" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-2.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityC2')">Add</a>
-                                                <input id="quantityC2" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-3.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityC3')">Add</a>
-                                                <input id="quantityC3" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-4.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityC4')">Add</a>
-                                                <input id="quantityC4" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-5.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityC5')">Add</a>
-                                                <input id="quantityC5" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-6.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityC6')">Add</a>
-                                                <input id="quantityC6" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-7.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityC7')">Add</a>
-                                                <input id="quantityC7" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-8.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityC8')">Add</a>
-                                                <input id="quantityC8" type="text" value="1" class="form-control" data-bts-min="1"
-                                                    data-bts-max="100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product_card">
-                                    <img src="assets/images/product-9.png">
-                                    <div class="product_content">
-                                        <div class="">
-                                            <div class="BodyMd Medium text pb-2">Harvest Gold 100% Atta Whole Wheat Bread</div>
-                                            <div class="BodySm Regular">450 g</div>
-                                        </div>
-                                        <div class="frame space-between">
-                                            <div class="BodySm semibold my-auto">₹55</div>
-                                            <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityC9')">Add</a>
-                                                <input id="quantityC9" type="text" value="1" class="form-control" data-bts-min="1"
                                                     data-bts-max="100">
                                             </div>
                                         </div>
