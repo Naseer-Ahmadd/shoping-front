@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     const mySwiper = new Swiper('.swiper-container', {
-      slidesPerView: 1,
+      slidesPerView: 1.5,
       spaceBetween: 10,
       pagination: {
         el: '.swiper-pagination',
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
       },
       breakpoints: {
         768: {
-          slidesPerView: 3.5,
+          slidesPerView: 4.5,
         },
       },
     });
