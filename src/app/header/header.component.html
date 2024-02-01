@@ -4,12 +4,11 @@
         <div class="collapse navbar-collapse column-gap_40" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page"  (click)="openHomePageGoogleAddressModal()">
+                    <a class="nav-link active" aria-current="page" >
                         <div class="text HeadingLg semibold">Delivery in 8 minutes</div>
                         <div *ngIf="currentLocation" class="text-tertiary BodyMd Regular">{{currentLocation.city}} {{currentLocation?.state}} {{currentLocation?.zip_code}}</div>
                     </a>
-            
-                  
+                    <!-- <span class="icon icon-edit" (click)="openHomePageGoogleAddressModal()">edit</span> -->
                 </li>
                 <li class="nav-item mobile_content my-auto">
                     <a class="nav-link " aria-current="page" href="#">
@@ -23,9 +22,24 @@
                 <div class="my-auto frmae_fill">
                     <input type="text" class="form-control custom_input" placeholder="Search">
                 </div>
-                <div class="my-auto login_button desktop_content">
-                    <a class="" href="javascript:void(0);"  data-bs-toggle="modal" data-bs-target="#login-modal">Login</a>
+                <div *ngIf="!isLoggedin" class="my-auto login_button desktop_content">
+                    <a class="" href="javascript:void(0);"  data-bs-toggle="modal" data-bs-target="#login-modal" (click)="checkClass()">Login</a>
                 </div>
+                <div *ngIf="isLoggedin" class="my-auto login_button desktop_content">
+                    <div class="dropdown">
+                        <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Account
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" [routerLink]="['/account']" routerLinkActive="router-link-active" >6005096322</a>
+                          <a class="dropdown-item" href="#">My Orders</a>
+                          <a class="dropdown-item" href="#">Saved Address</a>
+                          <a class="dropdown-item" href="#">My Wallet</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#">FAQ's</a>
+                          <a class="dropdown-item" (click)="logout()">Log Out</a>
+                        </div>
+                      </div>                </div>
                 <div class="my-auto cart_button desktop_content flex">
                     <span class="material-symbols-outlined">
                         shopping_cart
@@ -48,9 +62,7 @@
         </div>
         <div class="modal-card-body" >
             <h4> Please select your location </h4>
-            <input class="form-control search-box-text"  type="text" [(ngModel)]="autocompleteInput" #addresstext>
-
-           
+            <input class="form-control search-box-text" type="text" [(ngModel)]="autocompleteInput" #addresstext>
         </div>
         </div>
     </div>
@@ -61,11 +73,7 @@
 tabindex="-1">
 <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-        <!-- <div class="modal-header">
-            <h3 class="HeadingLg" id="login-modalLabel">Login</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div> -->
-        <form (ngSubmit)="f.form.valid && login()" #f="ngForm">
+        <form (ngSubmit)="f.form.valid && login(f.form.valid)" #f="ngForm">
         <div class="modal-body">
             <div class="frame-group login">
                 <div>
@@ -74,10 +82,19 @@ tabindex="-1">
                 <div class="HeadingXl">India's last minute app</div>
                 <div class="BodyLg text-tertiary">Log in or Sign up</div>
                 <div class="form-floating mb-3 mt-3">
-                    <input type="text" [(ngModel)]="credentials.phone" #phone="ngModel" name="phone" class="form-control" id="floatingInput" placeholder="+911234567890">
+                    <input type="text" [(ngModel)]="credentials.phone" #phone="ngModel" name="phone" class="form-control" id="floatingInput" placeholder="+911234567890" required>
                     <label for="floatingInput">Mobile number</label>
+                    <div class="form-text text-danger "
+                    *ngIf="!phone.valid && (phone.dirty || phone.touched || f.submitted)">
+                              Please enter your Mobile Number
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary mb-2" data-bs-target="#otp-modal" data-bs-toggle="modal" data-bs-dismiss="modal">Login</button>
+                <div *ngIf="isLoading" class="d-flex justify-content-center">
+                    <div class="spinner-border text-primary spinner" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2" >Login</button>
                 <span class="BodySm Regular text-tertiary">By continuing, you agree to our Terms of service & Privacy policy</span>
             </div>
         </div>
@@ -88,13 +105,9 @@ tabindex="-1">
 <div id="recaptcha-container"></div>
 
 </div>
-<div class="modal fade" id="otp-modal" aria-hidden="true" aria-labelledby="login-modalLabel" tabindex="-1">
+<div class="modal fade otp-modal" id="otp-modal" aria-hidden="true" aria-labelledby="login-modalLabel" tabindex="-1">
 <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-        <!-- <div class="modal-header">
-                <h3 class="HeadingLg" id="login-modalLabel">Login</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div> -->
             <form (ngSubmit)="f.form.valid && verifyOtp()" #f="ngForm">
         <div class="modal-body">
             <div class="frame-group login">

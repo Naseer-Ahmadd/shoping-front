@@ -12,6 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 // import { NgxSpinnerModule } from "ngx-spinner";
 import { ToastrModule } from 'ngx-toastr';
 import { ProductListingModule } from './product-listing/product-listing.module';
@@ -34,7 +36,9 @@ import { ProductListingModule } from './product-listing/product-listing.module';
       timeOut: 4000, // 4 seconds
       progressBar: true,
     }),
-    ProductListingModule 
+    ProductListingModule,
+    NgbModule,
+
   ],
   providers: [
     HttpClient

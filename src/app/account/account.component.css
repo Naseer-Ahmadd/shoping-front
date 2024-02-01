@@ -1,0 +1,34 @@
+.container-full {
+    width: 100vw;
+    height: 100vh;
+    padding: 20px; /* Adjust padding as needed */
+  }
+
+  .dashboard-container {
+    display: flex;
+  }
+
+  .dashboard-options {
+    width: 250px; /* Adjust the width of the options panel */
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    margin-right: 20px; /* Adjust the margin between options and content */
+  }
+
+  .dashboard-content {
+    flex-grow: 1;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .option-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 15px;
+  }

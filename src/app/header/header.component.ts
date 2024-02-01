@@ -1,35 +1,57 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthserviceService } from '../services/authservice.service';
 import firebase from 'firebase/compat/app';
+// import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import {
   getAuth,
   RecaptchaVerifier,
   signInWithPhoneNumber,
 } from 'firebase/auth';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 declare var $: any;
 declare var google: any;
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  // ModalReference: NgbModalRef;
   currentLocation: any = {};
   autocompleteInput: string = '';
   credentials: any = {};
-
+  user:any={}
+  isLoading: boolean = false
   @ViewChild('addresstext') addresstext: any;
   confirmationResult: any;
+  isLoggedin: boolean =false;
 
   constructor(
     private authService: AuthserviceService,
-    private toastrService: ToastrService
-  ) {}
+    private toastrService: ToastrService,
+    private router: Router,
+    // private ngbModalService: NgbModal,
+
+  ) {
+    if (document.getElementsByClassName('modal-backdrop')) {
+    console.log(' gegege:', );
+    $('.modal-backdrop').remove();
+      
+    }
+  }
 
   ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    console.log('storedUser :', token);
+    if (token) {
+      // If the user is found in localStorage, set isLoggedin to true
+      // this.user = JSON.parse(storedUser); // Parse the JSON string to an object
+      console.log('this.user :', this.user);
+      this.isLoggedin = true;
+    }
     this.authService.getCurrentLocation().subscribe((res) => {
       if (res) {
         this.currentLocation = res;
@@ -113,7 +135,16 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  login() {
+  checkClass(){
+
+    console.log('mmfmfmfm :', );
+    $('.modal-backdrop').remove();
+
+  }
+
+  login(isValid) {
+    if (isValid) {
+    this.isLoading = true
     const auth = getAuth();
     const appVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
       size: 'invisible',
@@ -122,17 +153,22 @@ export class HeaderComponent implements OnInit {
       },
       'expired-callback': () => {},
     });
+
     firebase
       .auth()
       .signInWithPhoneNumber(this.credentials.phone, appVerifier)
       .then((result) => {
         // console.log('resultttttt :', result);
         this.confirmationResult = result;
+        this.isLoading = false
+        $('#otp-modal').modal('show')
       })
       .catch((error) => {
         console.log('errorrrrrr', error)
         this.toastrService.error(error, 'Title Error!');
       });
+      // this.ModalReference=this.ngbModalService.open(modal)
+    }
   }
 
   verifyOtp() {
@@ -140,23 +176,40 @@ export class HeaderComponent implements OnInit {
     this.confirmationResult
       .confirm(this.credentials.otp)
       .then((result) => {
-        const user = result.user;
-        console.log('user :', user);
-        // ...
+        this.user = result.user.multiFactor.user;
+        if(this.user){
+          localStorage.setItem('user', this.user)
+          localStorage.setItem('token', this.user.accessToken)
+          console.log('this.user :', this.user.accessToken);
+          this.isLoggedin = true
+          this.toastrService.success('Logged in Successfully!');
+          $('#login-modal').modal('hide')
+          $('#otp-modal').modal('hide')
+          $('.modal-backdrop').remove();
+          this.router.navigate(['/account'])
+        }
       })
       .catch((error) => {
         console.log('User couldnt sign in (bad verification code?) :', error);
-        this.toastrService.error('bad verification code', 'Title Error!');
-
-        // User couldn't sign in (bad verification code?)
-        // ...
+        this.toastrService.error('bad verification code, please enter correct code');
       });
-    var credential = firebase.auth.PhoneAuthProvider.credential(
-      this.confirmationResult.verificationId,
-      this.credentials.otp
-    );
-    if (credential) {
-      this.toastrService.success('Logged in Successfully!', 'Title Success!');
-    }
+    // var credential = firebase.auth.PhoneAuthProvider.credential(
+    //   this.confirmationResult.verificationId,
+    //   this.credentials.otp
+    // );
+    // if (credential) {
+    //   this.toastrService.success('Logged in Successfully!', 'Title Success!');
+    //   $('#otp-modal').modal('hide')
+    //   this.router.navigate(['/account'])
+    // }
+  }
+
+  logout(){
+    $('.modal-backdrop').remove();
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    this.isLoggedin = false;
+    this.authService.signOut()
+    this.router.navigate(['/'])
   }
 }

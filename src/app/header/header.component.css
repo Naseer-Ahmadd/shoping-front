@@ -59,9 +59,9 @@
 }
 
     
-#login-modal, #otp-modal, #homePageGoogleAddressModal {
+/* #login-modal, #otp-modal, #homePageGoogleAddressModal {
   z-index: 10000;
-}
+} */
 
 /* .modal-backdrop {
 opacity: 0 !important;
