@@ -1,0 +1,179 @@
+<main>
+  <div class="app_content">
+      <div class="content_body">
+          <div class="bottom_bar">
+              <div class="item_list">
+                  <a class="item" href="#">
+                      <span class="material-symbols-outlined">
+                          home
+                      </span>
+                  </a>
+                  <a class="item" href="#">
+                      <span class="material-symbols-outlined">
+                          action_key
+                      </span>
+                  </a>
+                  <a class="item" href="#">
+                      <span class="material-symbols-outlined">
+                          shopping_cart
+                      </span>
+                  </a>
+                  <a class="item" href="#">
+                      <span class="material-symbols-outlined">
+                          account_circle
+                      </span>
+                  </a>
+              </div>
+          </div>
+          <div class="row scroll-section">
+              <div class="col-md-6">
+                  <div id="carouselExampleIndicators" class="carousel slide sticky-details">
+                    <div class="carousel-indicators">
+                      <button *ngFor="let img of productInner.images; let i = index" type="button"
+                              [attr.data-bs-target]="'#carouselExampleIndicators'"
+                              [attr.data-bs-slide-to]="i"
+                              [class.active]="i === 0"
+                              [attr.aria-label]="'Slide ' + (i + 1)"></button>
+                    </div>
+                    <div class="carousel-inner">
+                      <ng-container *ngFor="let img of productInner.images; let i = index">
+                        <div [class.active]="i === 0" class="carousel-item">
+                          <img [src]="img" class="d-block w-100" alt="...">
+                        </div>
+                      </ng-container>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                  
+                  
+              </div>
+              <div class="col-md-6 details-page">
+                  <div class="sticky-details surface pb-3">
+                      <!-- <nav aria-label="breadcrumb">
+                          <ol class="breadcrumb">
+                              <li class="breadcrumb-item BodySm Regular"><a href="#">Home</a></li>
+                              <li class="breadcrumb-item BodySm Regular"><a href="#">Library</a></li>
+                              <li class="breadcrumb-item active text-secondary BodySm Regular" aria-current="page">Data</li>
+                          </ol>
+                      </nav> -->
+                      <div class="mb-3 border-bottom pb-2">
+                          <h1 class="HeadingXl semibold mb-3">{{product.productName}}</h1>
+                          <a class="" href="#">View all by Amul</a>
+                      </div>
+                      <div class="mt-2 position-relative">
+                          <div class="BodySm Regular">{{product.unit}}</div>
+                          <div class="mb-1"><span class="BodySm  medium me-1">MRP</span><span class="BodyMd semibold">₹{{product.price}}</span></div>
+                          <div class="BodySm Regular text-tertiary">(Inclusive of all taxes)</div>
+                          <div class="my-auto product_card qty-button">
+                              <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantityB3')">Add</a>
+                              <input id="quantityB3" type="text" value="1" class="form-control" data-bts-min="1" data-bts-max="100">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="product-other-details">
+                      <div class="">
+                          <h1 class="HeadingXl medium mb-3 text">Product Details</h1>
+                      </div>
+                      <div class="mb-3">
+                          <h5 class="HeadingMd semibold text">Key Features</h5>
+                          <div class="text-tertiary HeadingSm" [innerHTML]="key_features"></div>
+                        </div>
+                      <div class="mb-3">
+                          <h5 class="HeadingMd semibold text">Ingredients</h5>
+                          <div class="text-tertiary HeadingSm">Milk Solids, Citric Acids</div>
+                      </div>
+                      <div class="mb-3">
+                          <h5 class="HeadingMd semibold text">Unit</h5>
+                          <div class="text-tertiary HeadingSm">{{product.unit}}</div>
+                      </div>
+                      <div class="mb-3">
+                          <h5 class="HeadingMd semibold text">Shelf Life</h5>
+                          <div class="text-tertiary HeadingSm">{{productInner.attributes?.shelf_life}}</div>
+                      </div>
+                      <div class="mb-3">
+                          <h5 class="HeadingMd semibold text">Manufacturer Details</h5>
+                          <div class="text-tertiary HeadingSm">{{productInner.attributes?.manufacturer_details}}</div>
+                      </div>
+                      <div class="mb-3">
+                          <h5 class="HeadingMd semibold text">Marketed By</h5>
+                          <div class="text-tertiary HeadingSm">{{productInner.attributes?.marketed_by}}</div>
+                      </div>
+                      <div class="mb-3">
+                          <h5 class="HeadingMd semibold text">Country Of Origin</h5>
+                          <div class="text-tertiary HeadingSm">India</div>
+                      </div>
+                      <div class="mb-3">
+                          <h5 class="HeadingMd semibold text">FSSAI License</h5>
+                          <div class="text-tertiary HeadingSm">{{productInner.attributes?.fssai_license}}</div>
+                      </div>
+                      <div class="mb-3">
+                          <h5 class="HeadingMd semibold text">Customer Care Details</h5>
+                          <div class="text-tertiary HeadingSm">Email: {{email}}</div>
+                      </div>
+                      <div class="mb-3">
+                          <h5 class="HeadingMd semibold text">Return Policy</h5>
+                          <div class="text-tertiary HeadingSm">{{productInner.attributes?.return_policy}}</div>
+                      </div>
+                      <div class="mb-3">
+                          <h5 class="HeadingMd semibold text">Seller</h5>
+                          <div class="text-tertiary HeadingSm">GROCERY EVERYDAY</div>
+                      </div>
+                      <!-- <div class="mb-3">
+                          <h5 class="HeadingMd semibold text">Seller FSSAI</h5>
+                          <div class="text-tertiary HeadingSm">10822005001143</div>
+                      </div> -->
+                      <div class="mb-3">
+                          <h5 class="HeadingMd semibold text">Description</h5>
+                          <div class="text-tertiary HeadingSm">{{product.attributes?.description}}</div>
+                      </div>
+                      <div class="mb-3">
+                          <h5 class="HeadingMd semibold text">Disclaimer</h5>
+                          <div class="text-tertiary HeadingSm">{{productInner.attributes?.return_policy}}</div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <section>
+            <h4 class="HeadingXl medium mb-3 mt-4">Dairy, Bread & Eggs</h4>
+            <div class="carousel_2 mb-4">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" *ngFor="let product of products">
+                          <a (click)="getProduct(product.product_id); scrollTop() "
+                            routerLinkActive="router-link-active">
+                            <div class="product_card">
+                                <img src="{{product.image_url}}">
+                                <div class="product_content">
+                                    <div class="">
+                                        <div class="BodyMd Medium text pb-2">{{product.productName}}</div>
+                                        <div class="BodySm Regular">{{product.unit}}</div>
+                                    </div>
+                                    <div class="frame space-between">
+                                        <div class="BodySm semibold my-auto">₹{{product.price}}</div>
+                                        <div class="my-auto">
+                                            <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity1')">Add</a>
+                                            <input id="quantity1" type="text" value="1" class="form-control" data-bts-min="1" data-bts-max="100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+                        <!-- Add more swiper slides as needed -->
+                    </div>
+                    <!-- Add Pagination -->
+                    <!-- <div class="swiper-pagination"></div> -->
+                </div>
+            </div>
+        </section>
+
+      </div>
+  </div>
+</main>

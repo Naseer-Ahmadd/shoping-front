@@ -61,7 +61,7 @@
                     <div class="product_list">
                         <div class="product_list_group pt-0">
                             <div class="product_card" *ngFor="let product of products">
-                                <a class="">
+                                <a class="" [routerLink]="['/product', product.product_id]">
                                     <img src="{{product.image_url}}" >
                                     <div class="product_content">
                                         <div class="">

@@ -30,14 +30,32 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="text-center banner mt-2">
-                                <img src="assets/images/main-banner2.jpeg" height="">
+                                <img src="assets/images/banner_1.png" height="">
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
           
-            
+            <section>
+                <div class="carousel_1">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img src="assets/images/GE_Carousel_1.png" alt="Slide 1"></div>
+                            <div class="swiper-slide"><img src="assets/images/GE_Carousel_2.png" alt="Slide 2"></div>
+                            <div class="swiper-slide"><img src="assets/images/GE_Carousel_1.png" alt="Slide 1"></div>
+                            <div class="swiper-slide"><img src="assets/images/GE_Carousel_2.png" alt="Slide 2"></div>
+                            <div class="swiper-slide"><img src="assets/images/GE_Carousel_1.png" alt="Slide 1"></div>
+                            <div class="swiper-slide"><img src="assets/images/GE_Carousel_2.png" alt="Slide 2"></div>
+                            <!-- <div class="swiper-slide"><img src="assets/images/carousel-3.png" alt="Slide 3"></div> -->
+                            <!-- <div class="swiper-slide"><img src="assets/images/carousel-4.png" alt="Slide 3"></div> -->
+                            <!-- Add more swiper slides as needed -->
+                        </div>
+                        <!-- Add Pagination -->
+                        <!-- <div class="swiper-pagination"></div> -->
+                    </div>
+                </div>
+            </section>
 
 
             <section>
@@ -57,6 +75,8 @@
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide" *ngFor="let product of products">
+                                <a [routerLink]="['/product', product.product_id]"
+                                routerLinkActive="router-link-active">
                                 <div class="product_card">
                                     <img src="{{product.image_url}}">
                                     <div class="product_content">
@@ -73,6 +93,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </a>
                             </div>
                             <!-- Add more swiper slides as needed -->
                         </div>
@@ -88,6 +109,8 @@
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide" *ngFor="let product of products2">
+                                <a [routerLink]="['/product', product.product_id]"
+                                routerLinkActive="router-link-active"> 
                                 <div class="product_card">
                                     <img src="{{product.image_url}}">
                                     <div class="product_content">
@@ -105,6 +128,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </a>   
                             </div>
                             <!-- Add more swiper slides as needed -->
                         </div>
@@ -121,6 +145,8 @@
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide" *ngFor="let product of products3">
+                                <a [routerLink]="['/product', product.product_id]"
+                                routerLinkActive="router-link-active"> 
                                 <div class="product_card">
                                     <img src="{{product.image_url}}">
                                     <div class="product_content">
@@ -138,6 +164,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </a>
                             </div>
                             <!-- Add more swiper slides as needed -->
                         </div>

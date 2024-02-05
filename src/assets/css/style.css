@@ -8,7 +8,7 @@
     --neu_500:#323232;
     --neu_600:#222222;
     /* --Primary-colors--- */
-    --pri_500:#2E6C43;
+    --pri_500:#0C831F;
 
     /* --font-size-- */
     --heading3Xl:2.25rem;
@@ -177,6 +177,9 @@ body a{
     line-height: 1rem;
     font-weight: 650;
 }
+.line-throught{
+    text-decoration: line-through;
+}
 
 /* -------font-weight----------- */
 .regular{
@@ -202,8 +205,7 @@ body a{
     padding:14px 20px;
 }
 .cart_button{
-    /* background-color: rgb(12, 131, 31); */
-    background-color: #2E6C43;
+    background-color: rgb(12, 131, 31);
     border-radius: 8px;
     cursor: pointer;
     height: 52px;
@@ -367,6 +369,7 @@ footer{
 }
 .carousel_1 .swiper-slide img{
     width: 100%;
+    border-radius: 12px;
 }
 /* ===============End============== */
 /* ===============category_1-section============== */
@@ -466,6 +469,140 @@ footer{
 }
 .frame-group.login img{
     width: 50px;
+}
+.details-page{
+    padding-top:48px;
+    padding-left:48px;
+    border-left:1px solid #dddddd;
+    position: relative;
+}
+.scroll-section{
+    height:calc(100vh - 80px);
+    overflow-y: auto;
+}
+.sticky-details{
+    position: sticky;
+    top:-20px;
+}
+.surface{
+    background-color:var(--neu_100) ;
+}
+.qty-button{
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: none !important;
+    box-shadow: none !important;
+    border: none;
+}
+
+.carousel-control-next .carousel-control-next-icon{
+    background-color: #f7f7f7;
+    border-radius: 30px;
+}
+.cart-item{
+    display: flex;
+    column-gap: 12px;
+    align-items: center;
+}
+.cart-item img{
+    height:52px;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+}
+.my-cart{
+    position: fixed;
+    right: 0;
+    background-color: var(--neu_100);
+    height: calc(100vh - 0px);
+    z-index: 99;
+    max-width: 400px;
+    top: 0;
+    width: 100%;
+    transform: translateX(400px);
+    transition: all 0.5s ease;
+}
+.my-cart .header{
+    padding:16px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.my-cart .header span{
+    cursor: pointer;
+}
+.cart-items-list{
+    padding:12px;
+    background-color: var(--neu_200);
+    height: calc(100vh - 62px);
+    overflow-y: auto;
+    padding-bottom: 120px;
+}
+.cart-item{
+    padding:12px;
+}
+.price-details .price-item{
+    display: flex;
+    justify-content: space-between;
+}
+.price-details{
+    background-color: var(--neu_100);
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: rgb(0 0 0 / 10%) 2px 2px 8px;
+}
+.items-list-bg{
+    background-color: var(--neu_100);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 14px;
+}
+.items-list-bg .product_card{
+    border:none;
+    box-shadow: none;
+    border-radius: 0;
+}
+.cart-footer .cart-button{
+    background-color: var(--pri_500);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cart-footer .cart-button label{
+    color:var(--neu_300);
+}
+.cart-footer .cart-button .price{
+    color:var(--neu_100);
+}
+.cart-footer .cart-button .HeadingMd{
+    color:var(--neu_100);
+}
+.cart-footer .cart-button .material-symbols-outlined{
+    color: var(--neu_100) !important;
+    font-size: 20px;
+}
+.cart-footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--neu_100);
+    padding: 12px;
+    box-shadow: rgb(0 0 0 / 10%) 1px -5px 10px 1px;
+}
+.my-cart.active{
+    transform: translateX(0px);
+    transition: all 0.5s ease;
+}
+.overlay-effect.active{
+    background-color: #00000082;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 99;
+    top: 0;
 }
 /* ===============End============== */
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Category-Page++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
@@ -571,6 +708,24 @@ footer{
     .category_list{
         width: 100%;
         max-width: 80px;
+    }
+    .scroll-section{
+        height:inherit;
+        overflow-y: initial;
+    }
+    .sticky-details{
+        position: initial;
+        top:0;
+    }
+    .details-page{
+        padding-top:16px;
+        padding-left:16px;
+        padding-bottom: 48px;
+        border-left:1px solid transparent;
+        position: relative;
+    }
+    .details-page nav{
+        display: none;
     }
     
 }

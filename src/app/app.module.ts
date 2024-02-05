@@ -17,6 +17,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { NgxSpinnerModule } from "ngx-spinner";
 import { ToastrModule } from 'ngx-toastr';
 import { ProductListingModule } from './product-listing/product-listing.module';
+import { ProductModule } from './product/product.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,8 @@ import { ProductListingModule } from './product-listing/product-listing.module';
       progressBar: true,
     }),
     ProductListingModule,
-    NgbModule,
+    ProductModule
+    // NgbModule,
 
   ],
   providers: [
