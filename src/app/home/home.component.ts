@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Swiper from 'swiper';
 import { CategoriesService } from '../services/categories.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,7 @@ export class HomeComponent implements OnInit {
   products:any =[]
   products2:any =[]
   products3:any =[]
-  constructor( private router: Router,private catService: CategoriesService) { 
+  constructor( private router: Router,private catService: CategoriesService, private userService: UserService) { 
 
   }
 
@@ -84,5 +85,18 @@ export class HomeComponent implements OnInit {
       const l0CatNumber = l0CatMatch[1];
       this.router.navigate([ '/products'], { queryParams: { catId: Number(l0CatNumber) } });
     }
+  }
+
+  addToCart(product){
+  console.log('product :', product);
+  let cartItem ={}
+  cartItem['product_id'] =product.product_id
+  cartItem['unit'] =product.unit
+  cartItem['price'] = product.price
+  cartItem['image_url'] = product.image_url
+  cartItem['productName']= product.productName
+
+  this.userService.updateUserCart(cartItem)
+
   }
 }

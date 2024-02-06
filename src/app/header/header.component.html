@@ -43,7 +43,7 @@
                           <a class="dropdown-item" (click)="logout()">Log Out</a>
                         </div>
                       </div>                </div>
-                <div class="my-auto cart_button desktop_content flex">
+                <div (click)="isUserLoggedin()" class="my-auto cart_button desktop_content flex">
                     <span class="material-symbols-outlined">
                         shopping_cart
                     </span>

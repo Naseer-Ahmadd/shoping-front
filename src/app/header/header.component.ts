@@ -10,6 +10,7 @@ import {
 } from 'firebase/auth';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 declare var $: any;
 declare var google: any;
@@ -33,11 +34,11 @@ export class HeaderComponent implements OnInit {
     private authService: AuthserviceService,
     private toastrService: ToastrService,
     private router: Router,
+    private userService: UserService
     // private ngbModalService: NgbModal,
 
   ) {
     if (document.getElementsByClassName('modal-backdrop')) {
-    console.log(' gegege:', );
     $('.modal-backdrop').remove();
       
     }
@@ -45,18 +46,20 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
-    console.log('storedUser :', token);
+    // let llll =  JSON.parse(localStorage.getItem('currentLocation') || '{}')
+    // console.log('llll :', llll);
+        
+
     if (token) {
-      // If the user is found in localStorage, set isLoggedin to true
-      // this.user = JSON.parse(storedUser); // Parse the JSON string to an object
-      console.log('this.user :', this.user);
       this.isLoggedin = true;
     }
     this.authService.getCurrentLocation().subscribe((res) => {
       if (res) {
         this.currentLocation = res;
+        localStorage.setItem('currentLocation',JSON.stringify(this.currentLocation))
       }
     });
+    // this.saveUser()
   }
 
   openHomePageGoogleAddressModal() {
@@ -131,6 +134,7 @@ export class HeaderComponent implements OnInit {
       }
       if (locality) this.currentLocation.state = locality;
       if (postcode) this.currentLocation.zip_code = postcode;
+      if (this.currentLocation) localStorage.setItem('userLocation', this.currentLocation)
       $('#homePageGoogleAddressModal').modal('hide');
     }
   }
@@ -178,15 +182,15 @@ export class HeaderComponent implements OnInit {
       .then((result) => {
         this.user = result.user.multiFactor.user;
         if(this.user){
-          localStorage.setItem('user', this.user)
+          localStorage.setItem('phone', this.user.phoneNumber)
           localStorage.setItem('token', this.user.accessToken)
-          console.log('this.user :', this.user.accessToken);
           this.isLoggedin = true
           this.toastrService.success('Logged in Successfully!');
           $('#login-modal').modal('hide')
           $('#otp-modal').modal('hide')
           $('.modal-backdrop').remove();
           this.router.navigate(['/account'])
+          this.saveUser()
         }
       })
       .catch((error) => {
@@ -204,12 +208,38 @@ export class HeaderComponent implements OnInit {
     // }
   }
 
+  saveUser(){
+    let userLocation = JSON.parse(localStorage.getItem('currentLocation') || '{}')
+    let userData ={}
+    if(userLocation){
+      userData['userLocation'] = userLocation
+    }
+    let userPhone = localStorage.getItem('phone')
+    if(userPhone){
+      userData['phone'] = userPhone
+    }
+    userData['cart'] = []
+    this.userService.adduser(userData)
+  }
+
   logout(){
     $('.modal-backdrop').remove();
     localStorage.removeItem('token')
     localStorage.removeItem('user')
+    localStorage.removeItem('phone')
     this.isLoggedin = false;
     this.authService.signOut()
     this.router.navigate(['/'])
   }
+
+  isUserLoggedin(){
+    if(this.authService.isLoggedin()){
+      this.router.navigate(['/cart'])
+    }else{
+      this.toastrService.warning('Please login to view your cart');
+    }
+  }
+
+
+
 }

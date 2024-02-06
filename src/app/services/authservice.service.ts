@@ -91,4 +91,11 @@ export class AuthserviceService {
   signOut() {
     return this.auth.signOut();
   }
+
+  isLoggedin(){
+    const token = localStorage.getItem('token');
+    if (token) {
+      return true
+    }
+  }
 }

@@ -75,10 +75,10 @@
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide" *ngFor="let product of products">
-                                <a [routerLink]="['/product', product.product_id]"
-                                routerLinkActive="router-link-active">
                                 <div class="product_card">
-                                    <img src="{{product.image_url}}">
+                                    <a [routerLink]="['/product', product.product_id]"
+                                    routerLinkActive="router-link-active">
+                                    <img src="{{product.image_url}}"></a>
                                     <div class="product_content">
                                         <div class="">
                                             <div class="BodyMd Medium text pb-2">{{product.productName}}</div>
@@ -87,13 +87,13 @@
                                         <div class="frame space-between">
                                             <div class="BodySm semibold my-auto">₹{{product.price}}</div>
                                             <div class="my-auto">
-                                                <a class="add-to-cart my-auto addBtn" onclick="toggleAdd('quantity1')">Add</a>
+                                                <a class="add-to-cart my-auto addBtn" (click)="addToCart(product)">Add</a>
                                                 <input id="quantity1" type="text" value="1" class="form-control" data-bts-min="1" data-bts-max="100">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                </a>
+                                
                             </div>
                             <!-- Add more swiper slides as needed -->
                         </div>

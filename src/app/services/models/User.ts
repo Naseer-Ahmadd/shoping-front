@@ -8,6 +8,7 @@ export interface UserModel {
     addedBy:string
     creationDate:string
     updationDate:string
+    cart: Array<string>;
     
 
 }
