@@ -47,9 +47,9 @@
                     <span class="material-symbols-outlined">
                         shopping_cart
                     </span>
-                    <div class="">
-                        <div class="BodySm semibold">4 items</div>
-                        <div class="BodySm semibold">$ 20.35</div>
+                    <div class="" *ngIf="isLoggedin">
+                        <div class="BodySm semibold">{{cartCount}} items</div>
+                        <div class="BodySm semibold">₹ {{cartTotalPrice}}</div>
                     </div>
                 </div>
             </div>
@@ -80,16 +80,16 @@ tabindex="-1">
         <div class="modal-body">
             <div class="frame-group login">
                 <div>
-                    <img src="assets/images/app_logo.svg">
+                    <img src="assets/images/GE_LOGO_01.png" width="60px" height="60px">
                 </div>
                 <div class="HeadingXl">India's last minute app</div>
                 <div class="BodyLg text-tertiary">Log in or Sign up</div>
                 <div class="form-floating mb-3 mt-3">
-                    <input type="text" [(ngModel)]="credentials.phone" #phone="ngModel" name="phone" class="form-control" id="floatingInput" placeholder="+911234567890" required>
-                    <label for="floatingInput">Mobile number</label>
+                    <input type="text" [(ngModel)]="credentials.phone" #phone="ngModel" name="phone" class="form-control" id="floatingInput" placeholder="1234567890" required>
+                    <label for="floatingInput">10 Digits Mobile number </label>
                     <div class="form-text text-danger "
                     *ngIf="!phone.valid && (phone.dirty || phone.touched || f.submitted)">
-                              Please enter your Mobile Number
+                              Please Enter Your Mobile Number
                     </div>
                 </div>
                 <div *ngIf="isLoading" class="d-flex justify-content-center">
@@ -111,20 +111,24 @@ tabindex="-1">
 <div class="modal fade otp-modal" id="otp-modal" aria-hidden="true" aria-labelledby="login-modalLabel" tabindex="-1">
 <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-            <form (ngSubmit)="f.form.valid && verifyOtp()" #f="ngForm">
+            <form (ngSubmit)="f.form.valid && verifyOtp()" #otpForm="ngForm">
         <div class="modal-body">
             <div class="frame-group login">
                 <div>
-                    <img src="assets/images/app_logo.svg">
+                    <img src="assets/images/GE_LOGO_01.png" width="60px" height="60px">
                 </div>
                 <div class="HeadingXl">OTP Verification</div>
-                <div class="BodyLg text-tertiary">We have sent a verification code to +91-7302677703</div>
+                <div class="BodyLg text-tertiary">We have sent a verification code to {{credentials.phone}}</div>
                 <div class="form-floating mb-3 mt-3">
-                    <input type="text" [(ngModel)]="credentials.otp" #otp="ngModel" name="otp" class="form-control" id="floatingInput" placeholder="+911234567890">
+                    <input type="text" [(ngModel)]="credentials.otp" #otp="ngModel" name="otp" class="form-control" id="floatingInput" placeholder="+911234567890" required>
                     <label for="floatingInput">Enter OTP</label>
+                    <div class="form-text text-danger "
+                    *ngIf="!otp.valid && (otp.dirty || otp.touched || otpForm.submitted)">
+                              Please Enter OTP
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary mb-2">verify </button>
-                <a class="BodySm Regular text-tertiary" href="#">Resend Code (in 27 secs)</a>
+                <button type="submit" class="btn btn-primary mb-2" [disabled]="!otpForm.form.valid">verify </button>
+                <a class="BodySm Regular text-tertiary" >Resend Code (in 27 secs)</a>
             </div>
         </div>
     </form>

@@ -13,6 +13,7 @@
                 <h5 class="card-title">{{ item.productName }}</h5>
                 <p class="card-text">{{ item.unit }}</p>
                 <p class="card-text"><strong>Price:</strong> ${{ item.price }}</p>
+                <p class="card-text"><strong>Quantity:</strong> <b> {{ item.quantity }}</b></p>
                 <button class="btn btn-danger" (click)="removeProduct(item)">Remove Product</button>
               </div>
             </div>
@@ -26,11 +27,11 @@
             <ul class="list-group list-group-flush">
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 Total Items
-                <span class="badge bg-primary">{{ cartItems.length }}</span>
+                <span class="badge bg-primary">{{ cartCount }}</span>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 Total Price
-                <span class="badge bg-success">${{ calculateTotalPrice() }}</span>
+                <span class="badge bg-success">${{ cartTotalPrice }}</span>
               </li>
             </ul>
           </div>

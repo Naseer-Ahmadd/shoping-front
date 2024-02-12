@@ -87,16 +87,4 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  addToCart(product){
-  console.log('product :', product);
-  let cartItem ={}
-  cartItem['product_id'] =product.product_id
-  cartItem['unit'] =product.unit
-  cartItem['price'] = product.price
-  cartItem['image_url'] = product.image_url
-  cartItem['productName']= product.productName
-
-  this.userService.updateUserCart(cartItem)
-
-  }
 }

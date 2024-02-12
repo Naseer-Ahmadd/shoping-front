@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, effect, OnInit, ViewChild } from '@angular/core';
 import { AuthserviceService } from '../services/authservice.service';
 import firebase from 'firebase/compat/app';
 // import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -29,6 +29,8 @@ export class HeaderComponent implements OnInit {
   @ViewChild('addresstext') addresstext: any;
   confirmationResult: any;
   isLoggedin: boolean =false;
+  cartCount:Number = 0;
+  cartTotalPrice: Number = 0;
 
   constructor(
     private authService: AuthserviceService,
@@ -39,20 +41,27 @@ export class HeaderComponent implements OnInit {
 
   ) {
     if (document.getElementsByClassName('modal-backdrop')) {
-    $('.modal-backdrop').remove();
-      
+      $('.modal-backdrop').remove();
     }
+    // effect(()=>{
+    //   this.cartCount = this.userService.cartCount()
+    //   this.cartPrice = this.userService.cartPrice()
+    // })
   }
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
-    // let llll =  JSON.parse(localStorage.getItem('currentLocation') || '{}')
-    // console.log('llll :', llll);
-        
-
     if (token) {
       this.isLoggedin = true;
     }
+    this.userService.getCartCount()
+    this.userService.cartCount$.subscribe((count) => {
+      this.cartCount = count;
+    });
+
+    this.userService.cartTotalPrice$.subscribe((totalPrice) => {
+      this.cartTotalPrice = totalPrice;
+    });
     this.authService.getCurrentLocation().subscribe((res) => {
       if (res) {
         this.currentLocation = res;
@@ -160,7 +169,7 @@ export class HeaderComponent implements OnInit {
 
     firebase
       .auth()
-      .signInWithPhoneNumber(this.credentials.phone, appVerifier)
+      .signInWithPhoneNumber('+91'+this.credentials.phone, appVerifier)
       .then((result) => {
         // console.log('resultttttt :', result);
         this.confirmationResult = result;
@@ -177,35 +186,32 @@ export class HeaderComponent implements OnInit {
 
   verifyOtp() {
     // console.log(' ddd:', this.credentials.otp);
-    this.confirmationResult
-      .confirm(this.credentials.otp)
-      .then((result) => {
-        this.user = result.user.multiFactor.user;
-        if(this.user){
-          localStorage.setItem('phone', this.user.phoneNumber)
-          localStorage.setItem('token', this.user.accessToken)
-          this.isLoggedin = true
-          this.toastrService.success('Logged in Successfully!');
-          $('#login-modal').modal('hide')
-          $('#otp-modal').modal('hide')
-          $('.modal-backdrop').remove();
-          this.router.navigate(['/account'])
-          this.saveUser()
-        }
-      })
-      .catch((error) => {
-        console.log('User couldnt sign in (bad verification code?) :', error);
-        this.toastrService.error('bad verification code, please enter correct code');
-      });
-    // var credential = firebase.auth.PhoneAuthProvider.credential(
-    //   this.confirmationResult.verificationId,
-    //   this.credentials.otp
-    // );
-    // if (credential) {
-    //   this.toastrService.success('Logged in Successfully!', 'Title Success!');
-    //   $('#otp-modal').modal('hide')
-    //   this.router.navigate(['/account'])
-    // }
+    try {
+      this.confirmationResult
+        .confirm(this.credentials.otp)
+        .then((result) => {
+          this.user = result.user.multiFactor.user;
+          if(this.user){
+            localStorage.setItem('phone', this.user.phoneNumber)
+            localStorage.setItem('token', this.user.accessToken)
+            this.isLoggedin = true
+            this.toastrService.success('Logged in Successfully!');
+            $('#login-modal').modal('hide')
+            $('#otp-modal').modal('hide')
+            $('.modal-backdrop').remove();
+            this.router.navigate(['/account'])
+            this.userService.getCartCount()
+            this.saveUser()
+          }
+        })
+        .catch((error) => {
+          console.log('User couldnt sign in (bad verification code?) :', error);
+          this.toastrService.error('bad verification code, please enter correct code');
+        });   
+    } catch (error) {
+    console.log('error :', error);
+      
+    }
   }
 
   saveUser(){
@@ -219,7 +225,13 @@ export class HeaderComponent implements OnInit {
       userData['phone'] = userPhone
     }
     userData['cart'] = []
-    this.userService.adduser(userData)
+    this.userService.getUser().then((user) => {
+      if(!user){
+        this.userService.adduser(userData)
+      }else{
+        // this.userService.updateCartCount(user?.cart?.length)
+      }
+    })
   }
 
   logout(){

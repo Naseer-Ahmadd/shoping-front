@@ -3,6 +3,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CategoriesService } from '../services/categories.service';
 import { NgFor } from '@angular/common'; 
 import Swiper from 'swiper';
+import { UserService } from '../services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product',
@@ -19,7 +21,8 @@ export class ProductComponent {
   email= 'ganeshabhog@gmail.com'
   products:any =[]
   products2:any =[]
-  constructor(private route: ActivatedRoute,private catService: CategoriesService) {
+  constructor(private route: ActivatedRoute,private catService: CategoriesService,private userService: UserService,
+    private toastrService: ToastrService) {
     this.route.params.subscribe(params => {
       this.productId = params['id'];
     });
@@ -74,5 +77,30 @@ export class ProductComponent {
   scrollTop(){
     window.scrollTo(0, 0);
   }
+
+
+  addToCart(product){
+    console.log('product :', product);
+    let cartItem = {
+      product_id: product.product_id,
+      unit: product.unit,
+      price: product.price,
+      image_url: product.image_url,
+      productName: product.productName,
+      quantity: 1,
+    };
+  
+    this.userService.updateUserCart(cartItem)
+      .then((res) => {
+      console.log('res product added to cart :', res);
+        this.toastrService.success('Product added to cart');
+        this.userService.getCartCount()
+      })
+      .catch((error) => {
+        console.error('Failed to update user cart:', error);
+      });
+  
+  }
+
 
 }
