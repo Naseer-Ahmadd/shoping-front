@@ -1,0 +1,48 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Order Summary</h5>
+                    <p>Total items: {{cartCount}}</p>
+                    <p>Total Price: {{cartTotalPrice}}</p>
+
+                    <form>
+                        <div class="mb-3">
+                            <label for="paymentMethod" class="form-label">Payment Method</label>
+                            <select class="form-select" id="paymentMethod" required>
+                                <!-- <option value="creditCard">Credit Card</option>
+                                <option value="debitCard">Debit Card</option> -->
+                                <option value="cashOnDelivery">Pay on Delivery</option>
+                            </select>
+                        </div>
+
+                        <!-- Cash on Delivery information -->
+                        <div class="mb-3" id="cashOnDeliveryInfo" style="display: none;">
+                            <p>Cash on Delivery will be available for payment.</p>
+                        </div>
+                            <button type="button" class="cart_button mx-auto" (click)="openConfirmation('confirmationModal')">Confirm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #confirmationModal>
+    <div class="confim-popup">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="ModelReference.close()"></button>
+       
+      </div>
+      <div class="modal-body text-center">
+        <p> Are you sure you want to confirm the order?</p>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="ModelReference.close()">cancel</button>
+          <button type="button" class="btn btn-primary" (click)="confirmOrder()">confirm</button>
+      </div>
+    </div>
+  </ng-template>

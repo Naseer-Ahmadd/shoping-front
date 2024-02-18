@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit {
   credentials: any = {};
   user:any={}
   isLoading: boolean = false
+  userPhone:any
   @ViewChild('addresstext') addresstext: any;
   confirmationResult: any;
   isLoggedin: boolean =false;
@@ -54,6 +55,8 @@ export class HeaderComponent implements OnInit {
     if (token) {
       this.isLoggedin = true;
     }
+    let phone = localStorage.getItem('phone');
+    if(phone) this.userPhone = phone
     this.userService.getCartCount()
     this.userService.cartCount$.subscribe((count) => {
       this.cartCount = count;
@@ -149,10 +152,7 @@ export class HeaderComponent implements OnInit {
   }
 
   checkClass(){
-
-    console.log('mmfmfmfm :', );
     $('.modal-backdrop').remove();
-
   }
 
   login(isValid) {
@@ -175,9 +175,11 @@ export class HeaderComponent implements OnInit {
         this.confirmationResult = result;
         this.isLoading = false
         $('#otp-modal').modal('show')
+        appVerifier.clear()
       })
       .catch((error) => {
         console.log('errorrrrrr', error)
+        appVerifier.clear()
         this.toastrService.error(error, 'Title Error!');
       });
       // this.ModalReference=this.ngbModalService.open(modal)
@@ -226,9 +228,11 @@ export class HeaderComponent implements OnInit {
     }
     userData['cart'] = []
     this.userService.getUser().then((user) => {
-      if(!user){
+      if(user == 'NO_USER'){
+        console.log(' :adding new user', );
         this.userService.adduser(userData)
       }else{
+        this.userPhone = user.phone
         // this.userService.updateCartCount(user?.cart?.length)
       }
     })
@@ -248,7 +252,19 @@ export class HeaderComponent implements OnInit {
     if(this.authService.isLoggedin()){
       this.router.navigate(['/cart'])
     }else{
-      this.toastrService.warning('Please login to view your cart');
+      $('#login-modal').modal('show')
+      // this.toastrService.warning('Please login to view your cart');
+    }
+  }
+
+
+  navigateToAccount(){
+    if(this.authService.isLoggedin()){
+      this.router.navigate(['/account'])
+    }else{
+      this.checkClass()
+      $('#login-modal').modal('show')
+      // this.toastrService.warning('Please login to view your cart');
     }
   }
 

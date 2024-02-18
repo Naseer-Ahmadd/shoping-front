@@ -1,8 +1,13 @@
 <!-- cart.component.html -->
+
+
 <div class="container mt-5">
     <div class="row">
       <div class="col-md-8">
         <h3>Shopping Cart</h3>
+        <div *ngIf="!cartItems.length"class="alert alert-info mt-3" role="alert">
+          Your cart is empty. Please add items to your cart.
+        </div>
         <div *ngFor="let item of cartItems" class="card mb-3">
           <div class="row g-0">
             <div class="col-md-4">
@@ -12,7 +17,7 @@
               <div class="card-body">
                 <h5 class="card-title">{{ item.productName }}</h5>
                 <p class="card-text">{{ item.unit }}</p>
-                <p class="card-text"><strong>Price:</strong> ${{ item.price }}</p>
+                <p class="card-text"><strong>Price:</strong> ₹{{ item.price }}</p>
                 <p class="card-text"><strong>Quantity:</strong> <b> {{ item.quantity }}</b></p>
                 <button class="btn btn-danger" (click)="removeProduct(item)">Remove Product</button>
               </div>
@@ -31,9 +36,12 @@
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 Total Price
-                <span class="badge bg-success">${{ cartTotalPrice }}</span>
-              </li>
+                <span class="badge bg-success">₹ {{ cartTotalPrice }}</span>
+              </li><br>
             </ul>
+            <div class="text-center mt-3">
+              <button class="cart_button mx-auto" (click)="placeOrder()">Place Order & Checkout</button>
+            </div>
           </div>
         </div>
       </div>

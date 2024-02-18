@@ -14,7 +14,7 @@
                     <!-- <span class="icon icon-edit" (click)="openHomePageGoogleAddressModal()">edit</span> -->
                 </li>
                 <li class="nav-item mobile_content my-auto">
-                    <a class="nav-link " aria-current="page" href="#">
+                    <a class="nav-link " aria-current="page" routerLink="/account" (click)="navigateToAccount()" >
                         <span class="material-symbols-outlined">
                             account_circle
                         </span>
@@ -34,8 +34,8 @@
                           Account
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" [routerLink]="['/account']" routerLinkActive="router-link-active" >6005096322</a>
-                          <a class="dropdown-item" href="#">My Orders</a>
+                          <a class="dropdown-item" [routerLink]="['/account']" routerLinkActive="router-link-active" >{{userPhone}}</a>
+                          <a class="dropdown-item" [routerLink]="['/orders']">My Orders</a>
                           <a class="dropdown-item" href="#">Saved Address</a>
                           <a class="dropdown-item" href="#">My Wallet</a>
                           <div class="dropdown-divider"></div>
@@ -86,7 +86,7 @@ tabindex="-1">
                 <div class="BodyLg text-tertiary">Log in or Sign up</div>
                 <div class="form-floating mb-3 mt-3">
                     <input type="text" [(ngModel)]="credentials.phone" #phone="ngModel" name="phone" class="form-control" id="floatingInput" placeholder="1234567890" required>
-                    <label for="floatingInput">10 Digits Mobile number </label>
+                    <label for="floatingInput">Digits Mobile number </label>
                     <div class="form-text text-danger "
                     *ngIf="!phone.valid && (phone.dirty || phone.touched || f.submitted)">
                               Please Enter Your Mobile Number

@@ -2,9 +2,9 @@
     <div class="dashboard-container">
       <div class="dashboard-options">
         <a href="#" class="option-link">My Addresses</a>
-        <a href="#" class="option-link">My Orders</a>
+        <a routerLink="/orders" class="option-link">My Orders</a>
         <a href="#" class="option-link">My Wallet</a>
-        <a href="#" class="option-link">Logout</a>
+        <a (click)="logout()" class="option-link">Logout</a>
       </div>
       <div class="dashboard-content">
         <!-- Content for the dashboard goes here -->

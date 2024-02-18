@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { NgFor } from '@angular/common'; 
+import { NgFor, NgIf } from '@angular/common'; 
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor , NgIf],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
@@ -14,8 +15,9 @@ export class CartComponent {
   cartItems: any[] = [];
   cartCount: number;
   cartTotalPrice: number;
+  userAddress: any;
 
-constructor(private userService: UserService, private toastr: ToastrService){
+constructor(private router: Router, private userService: UserService, private toastr: ToastrService){
 
 }
 
@@ -33,7 +35,9 @@ ngOnInit(): void {
 
 getCart(){
   this.userService.getUser().then((user) => {
+  console.log('user :', user);
     this.cartItems = user.cart;
+    this.userAddress = user.userLocation
   })
   .catch((error: any) => {
     console.log('error :', error);
@@ -75,4 +79,30 @@ removeProduct(product: any): void {
 }
 
 
+  placeOrder(){
+
+    console.log(' this.cartItems:', this.cartItems.length);
+    console.log('cart :',this.cartItems );
+    const userPhone = localStorage.getItem('phone');
+
+    if(this.cartItems.length){
+      let order = {
+        user_id: userPhone,
+        order_id: 'GE_'+Math.floor(100000 + Math.random() * 900000),
+        user_address: this.userAddress,
+        orderDate: new Date(),
+        status: "Pending",
+        delivery_by: 'Tomorrow',
+        items: this.cartItems,
+        totalPrice: this.cartTotalPrice
+      }
+      localStorage.setItem('order', JSON.stringify(order))
+      this.router.navigate(['checkout'])
+    }else{
+      this.toastr.warning('Please add products to cart');
+    }
+  }
+
 }
+
+

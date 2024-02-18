@@ -1,4 +1,28 @@
 <footer>
+    <div class="bottom_bar">
+        <div class="item_list">
+            <a class="item" routerLink="/">
+                <span class="material-symbols-outlined">
+                    home
+                </span>
+            </a>
+            <a class="item" routerLink="/">
+                <span class="material-symbols-outlined">
+                    action_key
+                </span>
+            </a>
+            <a class="item" (click)="isUserLoggedin()">
+                <span class="material-symbols-outlined">
+                    shopping_cart
+                </span>
+            </a>
+            <a  class="item " aria-current="page" (click)="navigateToAccount()">
+                <span class="material-symbols-outlined">
+                    account_circle
+                </span>
+            </a>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-4">
             <h5 class="HeadingLg semibold">Useful Links</h5>

@@ -103,6 +103,7 @@ export class UserService {
     if (doc.exists) {
       return doc.data();
     } else {
+      return 'NO_USER'
       throw new Error("User document not found in Firestore");
     }
   }
@@ -115,14 +116,26 @@ export class UserService {
         this.getUsers.doc(userPhone).get().then(doc => {
           if (doc.exists) {
             const userData = doc.data() as UserModel;
-            userData.cart = userData.cart.filter(item => item['product_id'] !== product.product_id);
-            this.getUsers.doc(userPhone?.toString()).set(userData)
-              .then(() => {
-                resolve('Product removed from Firestore');
-              })
-              .catch((error) => {
-                reject('Error updating user data in Firestore: ' + error);
-              });
+            if(product.removeAll){
+              userData.cart =[]
+              this.getUsers.doc(userPhone?.toString()).set(userData)
+                .then(() => {
+                  resolve('All Product removed from Firestore');
+                })
+                .catch((error) => {
+                  reject('Error removing cart data in Firestore: ' + error);
+                });
+            }else{
+              userData.cart = userData.cart.filter(item => item['product_id'] !== product.product_id);
+              console.log('userData :', userData);
+              this.getUsers.doc(userPhone?.toString()).set(userData)
+                .then(() => {
+                  resolve('Product removed from Firestore');
+                })
+                .catch((error) => {
+                  reject('Error updating user data in Firestore: ' + error);
+                });
+              }
           } else {
             reject("User document not found in Firestore");
           }
@@ -172,18 +185,6 @@ export class UserService {
     });
   }
 
-
-  async findCartItemIndex(cartItem: any): Promise<number> {
-    const userPhone = localStorage.getItem('phone');
-    const doc = await this.getUsers.doc(userPhone?.toString()).get();
-    
-    if (doc.exists) {
-      const cart = doc.data()?.['cart'] as Array<any>;
-      return cart.findIndex(item => item.product_id === cartItem.product_id);
-    }
-  
-    return -1;
-  }
   
   async getCartCount() {
     try {
@@ -204,9 +205,62 @@ export class UserService {
     }
   }
   
+  private get getOrders() {
+    return this.db.collection('orders');
+  }
+
+
+  async createOrder(order): Promise<void> {
+    try {
+      const ordersCollection = this.db.collection('orders');
+      await ordersCollection.add(order);
+      // You may want to perform additional actions such as updating inventory, sending confirmation emails, etc.
+    } catch (error) {
+      console.error('Error placing order:', error);
+      throw error;
+    }
+  }
+
+  async getMyOrders(): Promise<Order[]> {
+    try {
+      const userPhone = localStorage.getItem('phone');
+      const ordersSnapshot = await this.db.collection('orders').where('user_id', '==', userPhone).get();
+      const orders: Order[] = [];
+      ordersSnapshot.forEach((doc) => {
+        orders.push({ ...doc.data(), orderId: doc.id } as Order);
+      });
+      return orders;
+    } catch (error) {
+      console.error('Error fetching user orders:', error);
+      throw error;
+    }
+  }
+}
 
 
 
 
+interface Order {
+  orderId?: string;
+  userId: string;
+  customerName: string;
+  shippingAddress: string;
+  orderDate: firebase.firestore.Timestamp;
+  totalAmount: number;
+  items: OrderItem[];
+  status: OrderStatus;
+}
 
+interface OrderItem {
+  productId: string;
+  productName: string;
+  quantity: number;
+  unitPrice: number;
+}
+
+enum OrderStatus {
+  Pending = 'Pending',
+  Shipped = 'Shipped',
+  Delivered = 'Delivered',
+  Cancelled = 'Cancelled',
 }
