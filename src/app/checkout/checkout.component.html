@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div *ngIf="!orderConfirmed" class="container mt-5">
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="card">
@@ -21,7 +21,10 @@
                         <div class="mb-3" id="cashOnDeliveryInfo" style="display: none;">
                             <p>Cash on Delivery will be available for payment.</p>
                         </div>
-                            <button type="button" class="cart_button mx-auto" (click)="openConfirmation('confirmationModal')">Confirm</button>
+                        <p>
+                            Note: We accept payments through Google Pay, PhonePe, Paytm, cash, and various other methods.
+                        </p>
+                        <button type="button" class="cart_button mx-auto" (click)="openConfirmation('confirmationModal')">Confirm</button>
                     </form>
                 </div>
             </div>
@@ -29,6 +32,29 @@
     </div>
 </div>
 
+<div *ngIf="orderConfirmed" class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card text-center">
+                <!-- <div class="card-body">
+                    <h5 class="card-title">Order Summary</h5>
+                </div> -->
+                <div class="card-body">
+                    <!-- Add a tick image or icon here -->
+                    <img src="assets/images/tick.gif" alt="Tick Icon" height="200px" >
+                    <p class="card-text mt-3">Your order has been confirmed successfully.</p>
+                </div>
+                <p>
+                    You will be redirected to orders page in <b>{{redirectTime}}</b> 
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+  
 
 <ng-template #confirmationModal>
     <div class="confim-popup">

@@ -1,15 +1,57 @@
 <div class="container-full">
     <div class="dashboard-container">
       <div class="dashboard-options">
+        <a routerLink="/account/dashboard" class="option-link">My Dashboard</a>
         <a href="#" class="option-link">My Addresses</a>
+        <a routerLink="/account/profile" class="option-link">My Profile</a>
         <a routerLink="/orders" class="option-link">My Orders</a>
-        <a href="#" class="option-link">My Wallet</a>
         <a (click)="logout()" class="option-link">Logout</a>
       </div>
       <div class="dashboard-content">
         <!-- Content for the dashboard goes here -->
-        <h2>Welcome to Your Dashboard!</h2>
-        <!-- Add more content as needed -->
+        <!-- <h2>Welcome to Your Dashboard!</h2> -->
+        <router-outlet></router-outlet>
       </div>
     </div>
+</div>
+
+<ng-template #updateEmailModal>
+  <div class="confim-popup">
+    <div class="modal-header">
+      <h5 class="modal-title text-center">Add Details</h5>
+      <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="ModelReference.close()"></button> -->
+    </div>
+    <form (ngSubmit)="updateEmail()" #f="ngForm">
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="name" class="form-label">Add Your Name:</label>
+          <input type="text" class="form-control" id="name" name="name" #name="ngModel"
+                 [(ngModel)]="userName" placeholder="Please enter your name" required
+                 pattern="[a-zA-Z ]{5,}" title="Minimum 5 alphabets required">
+          <div *ngIf="name.errors && (name.dirty || name.touched)">
+            <div class="text-danger">
+              <div *ngIf="name.hasError('required')">Name is required.</div>
+              <div *ngIf="name.hasError('pattern')">Name must have at least 5 alphabets.</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <label for="email" class="form-label">Add Your Email:</label>
+          <input type="email" class="form-control" id="email" name="email" #email="ngModel" [(ngModel)]="userEmail" placeholder="Please enter your email" trim required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+          <div *ngIf="email.errors && (email.dirty || email.touched)">
+            <div class="text-danger">
+              <div *ngIf="email.hasError('required')">Email is required.</div>
+              <div *ngIf="email.hasError('pattern')">Invalid email format.</div>
+            </div>
+          </div>
+        </div>
+        <p>Are you sure you want to add your email to {{ userEmail }}?</p>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-primary" (click)="ModelReference.close()">Cancel</button> -->
+        <button type="submit" class="btn btn-primary" [disabled]="email?.errors || email?.invalid || email.hasError('pattern') || name.hasError('required') || name.hasError('pattern')">Save</button>
+      </div>
+    </form>
   </div>
+</ng-template>

@@ -108,6 +108,24 @@ export class UserService {
     }
   }
 
+  async updateUserData(userData: any): Promise<void> {
+    try {
+      const userPhone = localStorage.getItem('phone');
+      if (!userPhone) {
+        throw new Error("Phone number not found in localStorage");
+      }
+      const userRef = this.getUsers.doc(userPhone);
+      // Update the email field in the document
+      await userRef.update({ 
+        email: userData.userEmail,
+        name: userData.userName 
+      });
+      console.log('Email updated successfully');
+    } catch (error) {
+      console.error('Error updating email:', error);
+      // Handle the error as needed
+    }
+  }
 
   removeCartItem(product: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
@@ -249,6 +267,8 @@ interface Order {
   totalAmount: number;
   items: OrderItem[];
   status: OrderStatus;
+  name: string,
+  email: string
 }
 
 interface OrderItem {

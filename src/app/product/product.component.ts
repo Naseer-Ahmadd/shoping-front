@@ -80,7 +80,7 @@ export class ProductComponent {
 
 
   addToCart(product){
-    console.log('product :', product);
+    console.log('productttt :', product);
     let cartItem = {
       product_id: product.product_id,
       unit: product.unit,

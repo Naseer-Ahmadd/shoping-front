@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AccountRoutingModule } from './account-routing.module';
 import { AccountComponent } from './account.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { AccountComponent } from './account.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     AccountRoutingModule
   ]
 })

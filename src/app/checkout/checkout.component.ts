@@ -2,13 +2,15 @@ import { Component, ViewChild } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 const _ = require('lodash');
 
 declare var $: any;
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [],
+  imports: [NgIf],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
 })
@@ -21,9 +23,11 @@ export class CheckoutComponent {
   orderItems:any
   cartCount: number;
   cartTotalPrice: number;
-
+  orderConfirmed: boolean = false;
+  redirectTime: number = 7; // Set your initial time in seconds
+  remainingTime: number;
     // 
-  constructor(private ngbModalService: NgbModal,private userService: UserService,private toastrService: ToastrService){
+  constructor(private router: Router, private ngbModalService: NgbModal,private userService: UserService,private toastrService: ToastrService){
     try {
       this.orderItems = JSON.parse(localStorage.getItem('order') || '')
     } catch (error) {
@@ -58,6 +62,15 @@ export class CheckoutComponent {
       console.log('res :', res);
         this.ModelReference.close()
         this.toastrService.success('Order Confirmed Successfully!');
+        const interval = setInterval(() => {
+          this.remainingTime = this.redirectTime;
+          this.redirectTime--;
+          if (this.redirectTime < 0) {
+            clearInterval(interval);
+            this.router.navigate(['orders']);
+          }
+        }, 1000);
+        this.orderConfirmed = true
         let cartItems = {
           removeAll: true,
           products: this.orderItems

@@ -16,6 +16,7 @@ export class CartComponent {
   cartCount: number;
   cartTotalPrice: number;
   userAddress: any;
+  user:any;
 
 constructor(private router: Router, private userService: UserService, private toastr: ToastrService){
 
@@ -38,6 +39,7 @@ getCart(){
   console.log('user :', user);
     this.cartItems = user.cart;
     this.userAddress = user.userLocation
+    this.user = user
   })
   .catch((error: any) => {
     console.log('error :', error);
@@ -49,6 +51,20 @@ getCart(){
 // }
 
 
+  // increaseQuantity(product){
+  //   console.log('productttt increaseQuantity:', product);
+  //   product.quantity = 1
+  //   console.log('product :', product);
+  //   this.userService.updateUserCart(product)
+  //     .then((res) => {
+  //     console.log('res product added to cart :', res);
+  //       // this.toastrService.success('Product added to cart');
+  //       this.userService.getCartCount()
+  //     })
+  //     .catch((error) => {
+  //       console.error('Failed to update user cart:', error);
+  //   });
+  // }
 
 
 removeProduct(product: any): void {
@@ -88,13 +104,15 @@ removeProduct(product: any): void {
     if(this.cartItems.length){
       let order = {
         user_id: userPhone,
-        order_id: 'GE_'+Math.floor(100000 + Math.random() * 900000),
+        order_id: 'GE'+Math.floor(100000 + Math.random() * 900000),
         user_address: this.userAddress,
         orderDate: new Date(),
         status: "Pending",
         delivery_by: 'Tomorrow',
         items: this.cartItems,
-        totalPrice: this.cartTotalPrice
+        totalPrice: this.cartTotalPrice,
+        name: this.user.name,
+        email: this.user.email
       }
       localStorage.setItem('order', JSON.stringify(order))
       this.router.navigate(['checkout'])

@@ -20,6 +20,12 @@
                 <p class="card-text"><strong>Price:</strong> ₹{{ item.price }}</p>
                 <p class="card-text"><strong>Quantity:</strong> <b> {{ item.quantity }}</b></p>
                 <button class="btn btn-danger" (click)="removeProduct(item)">Remove Product</button>
+
+                <!-- <div>
+                  <button class="btn btn-success" (click)="decreaseQuantity(item)">-</button>
+                  <span class="mx-2">{{ cartCount }}</span>
+                  <button class="btn btn-success" (click)="increaseQuantity(item)">+</button>
+                </div> -->
               </div>
             </div>
           </div>
