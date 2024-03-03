@@ -20,7 +20,8 @@ declare var google: any;
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  // ModalReference: NgbModalRef;
+  // @ViewChild('homePageGoogleAddressModal') locationModal: NgbModalRef;
+  // ModelReference: NgbModalRef;
   currentLocation: any = {};
   autocompleteInput: string = '';
   credentials: any = {};
@@ -68,6 +69,7 @@ export class HeaderComponent implements OnInit {
     this.authService.getCurrentLocation().subscribe((res) => {
       if (res) {
         this.currentLocation = res;
+        this.currentLocation.formatted_address = this.currentLocation.formatted_address.replace(/,\s*India$/, '');
         localStorage.setItem('currentLocation',JSON.stringify(this.currentLocation))
       }
     });
@@ -109,13 +111,11 @@ export class HeaderComponent implements OnInit {
         switch (componentType) {
           case 'street_number': {
             address1 = `${component.long_name} ${address1}`;
-            console.log('address1 :', address1);
             break;
           }
 
           case 'route': {
             address1 += component.short_name;
-            console.log('address1 :', address1);
             break;
           }
 
@@ -126,13 +126,11 @@ export class HeaderComponent implements OnInit {
 
           case 'postal_code_suffix': {
             postcode = `${postcode}-${component.long_name}`;
-            console.log('postcode :', postcode);
             break;
           }
 
           case 'locality':
             locality = component.long_name;
-            console.log('locality :', locality);
             break;
 
           case 'administrative_area_level_1': {
@@ -146,7 +144,10 @@ export class HeaderComponent implements OnInit {
       }
       if (locality) this.currentLocation.state = locality;
       if (postcode) this.currentLocation.zip_code = postcode;
-      if (this.currentLocation) localStorage.setItem('userLocation', this.currentLocation)
+      if (this.currentLocation){
+        this.currentLocation['formatted_address'] = place.formatted_address.replace(/,\s*India$/, '');
+        localStorage.setItem('userLocation', this.currentLocation)
+      }
       $('#homePageGoogleAddressModal').modal('hide');
     }
   }
@@ -162,7 +163,7 @@ export class HeaderComponent implements OnInit {
     const appVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
       size: 'invisible',
       callback: (response) => {
-        console.log('response :', response);
+        // console.log('response :', response);
       },
       'expired-callback': () => {},
     });
@@ -171,9 +172,9 @@ export class HeaderComponent implements OnInit {
       .auth()
       .signInWithPhoneNumber('+91'+this.credentials.phone, appVerifier)
       .then((result) => {
-        // console.log('resultttttt :', result);
         this.confirmationResult = result;
         this.isLoading = false
+        $('#login-modal').modal('hide')
         $('#otp-modal').modal('show')
         appVerifier.clear()
       })
@@ -207,7 +208,6 @@ export class HeaderComponent implements OnInit {
           }
         })
         .catch((error) => {
-          console.log('User couldnt sign in (bad verification code?) :', error);
           this.toastrService.error('bad verification code, please enter correct code');
         });   
     } catch (error) {
@@ -229,7 +229,7 @@ export class HeaderComponent implements OnInit {
     userData['cart'] = []
     this.userService.getUser().then((user) => {
       if(user == 'NO_USER'){
-        console.log(' :adding new user', );
+        // console.log(' :adding new user', );
         this.userService.adduser(userData)
       }else{
         this.userPhone = user.phone

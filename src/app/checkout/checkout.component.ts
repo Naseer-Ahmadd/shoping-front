@@ -16,17 +16,15 @@ declare var $: any;
 })
 export class CheckoutComponent {
   @ViewChild('confirmationModal') confirmModal: NgbModalRef;
-  @ViewChild('upgradePlan') upgradePlan: NgbModalRef;
-
   ModelReference: NgbModalRef;
 
   orderItems:any
   cartCount: number;
   cartTotalPrice: number;
   orderConfirmed: boolean = false;
-  redirectTime: number = 7; // Set your initial time in seconds
+  redirectTime: number = 6; // Set your initial time in seconds
   remainingTime: number;
-    // 
+  location:string;
   constructor(private router: Router, private ngbModalService: NgbModal,private userService: UserService,private toastrService: ToastrService){
     try {
       this.orderItems = JSON.parse(localStorage.getItem('order') || '')
@@ -44,8 +42,7 @@ export class CheckoutComponent {
   }
 
   ngOnInit(): void {
-
-
+    this.location = JSON.parse(localStorage.getItem('currentLocation') || '{}').formatted_address
   }
 
   openConfirmation(modal){

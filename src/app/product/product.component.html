@@ -72,7 +72,13 @@
                           <div class="mb-1"><span class="BodySm  medium me-1">MRP</span><span class="BodyMd semibold">₹{{product.price}}</span></div>
                           <div class="BodySm Regular text-tertiary">(Inclusive of all taxes)</div>
                           <div class="my-auto product_card qty-button">
-                              <a class="add-to-cart my-auto addBtn" (click)="addToCart(product)">Add</a>
+                              <!-- <a class="add-to-cart my-auto addBtn" (click)="addToCart(product)">Add</a> -->
+                                @if (isAdded) {
+                                    <a class="add-to-cart my-auto addBtn" (click)="addToCart(product)">Add More</a>
+                                }
+                                @else {
+                                    <a class="add-to-cart my-auto addBtn" (click)="addToCart(product)">Add</a>
+                                }
                               <input id="quantityB3" type="text" value="1" class="form-control" data-bts-min="1" data-bts-max="100">
                           </div>
                       </div>

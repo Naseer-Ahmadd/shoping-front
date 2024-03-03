@@ -55,7 +55,7 @@ export class CategoriesService {
 
 
   async getDocumentByProductID(product_id: number): Promise<Product[]> {
-  console.log('product_id :', product_id);
+  // console.log('product_id :', product_id);
     const querySnapshot = await this.db.collection('Products').where('product_id', '==', product_id).get();
     const products: Product[] = [];
     querySnapshot.forEach((doc) => {

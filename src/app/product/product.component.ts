@@ -21,6 +21,7 @@ export class ProductComponent {
   email= 'ganeshabhog@gmail.com'
   products:any =[]
   products2:any =[]
+  isAdded: boolean;
   constructor(private route: ActivatedRoute,private catService: CategoriesService,private userService: UserService,
     private toastrService: ToastrService) {
     this.route.params.subscribe(params => {
@@ -80,7 +81,7 @@ export class ProductComponent {
 
 
   addToCart(product){
-    console.log('productttt :', product);
+    // console.log('productttt :', product);
     let cartItem = {
       product_id: product.product_id,
       unit: product.unit,
@@ -92,12 +93,16 @@ export class ProductComponent {
   
     this.userService.updateUserCart(cartItem)
       .then((res) => {
-      console.log('res product added to cart :', res);
+      // console.log('res product added to cart :', res);
+      if(res == 'SUCCESS'){
+        this.isAdded = true
         this.toastrService.success('Product added to cart');
         this.userService.getCartCount()
+      }
       })
       .catch((error) => {
         console.error('Failed to update user cart:', error);
+        this.toastrService.warning('Please login to add product to cart');
       });
   
   }

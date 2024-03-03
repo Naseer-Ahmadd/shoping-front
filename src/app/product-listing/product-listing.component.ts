@@ -30,10 +30,10 @@ export class ProductListingComponent implements OnInit {
   }
 
   getSubCategories(parentCatId){
-  console.log('parentCatId :', parentCatId);
+  // console.log('parentCatId :', parentCatId);
     this.catService.getSubCategoryById(parentCatId)
     .then((SubCategories) => {
-    console.log('SubCategories :', SubCategories);
+    // console.log('SubCategories :', SubCategories);
     this.subCategories = SubCategories
     })
   }
@@ -41,17 +41,15 @@ export class ProductListingComponent implements OnInit {
   getAllproducts(parentCatId){
     this.catService.getDocumentsByParentCategoryID(parentCatId)
     .then((Products) => {
-    console.log('Products :', Products);
+    // console.log('Products :', Products);
     this.products = Products
     })
   }
 
   getProductsbyChildCatId(id){
-  console.log('id :', id);
-  console.log('id :', typeof id);
   this.catService.getDocumentsByChildCategoryID(Number(id))
   .then((Products) => {
-  console.log('Productsss :', Products);
+  // console.log('Productsss :', Products);
   this.products = Products
   })
   }

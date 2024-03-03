@@ -735,3 +735,10 @@ footer{
         }
 }
 
+.pac-container {
+    z-index: 9999;
+  }
+
+/* .modal-backdrop {
+    opacity: 0 !important;
+} */

@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Order Summary</h5>
                     <p>Total items: {{cartCount}}</p>
-                    <p>Total Price: {{cartTotalPrice}}</p>
+                    <p>Total Price: ₹{{cartTotalPrice.toFixed(2)}}</p>
 
                     <form>
                         <div class="mb-3">
@@ -23,6 +23,9 @@
                         </div>
                         <p>
                             Note: We accept payments through Google Pay, PhonePe, Paytm, cash, and various other methods.
+                        </p>
+                        <p>
+                            Delivery Address: <strong>{{location? location : 'please choose your location'}}</strong> 
                         </p>
                         <button type="button" class="cart_button mx-auto" (click)="openConfirmation('confirmationModal')">Confirm</button>
                     </form>

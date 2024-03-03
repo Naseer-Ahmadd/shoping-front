@@ -36,7 +36,7 @@ ngOnInit(): void {
 
 getCart(){
   this.userService.getUser().then((user) => {
-  console.log('user :', user);
+  // console.log('user :', user);
     this.cartItems = user.cart;
     this.userAddress = user.userLocation
     this.user = user
@@ -51,32 +51,28 @@ getCart(){
 // }
 
 
-  // increaseQuantity(product){
-  //   console.log('productttt increaseQuantity:', product);
-  //   product.quantity = 1
-  //   console.log('product :', product);
-  //   this.userService.updateUserCart(product)
-  //     .then((res) => {
-  //     console.log('res product added to cart :', res);
-  //       // this.toastrService.success('Product added to cart');
-  //       this.userService.getCartCount()
-  //     })
-  //     .catch((error) => {
-  //       console.error('Failed to update user cart:', error);
-  //   });
-  // }
-
-
-removeProduct(product: any): void {
+updateQuantity(product: any, decrease: any): void {
   const itemIndex = this.cartItems.findIndex(item => item === product);
-
   if (itemIndex !== -1) {
-    if (this.cartItems[itemIndex].quantity > 1) {
-      // Decrease the quantity if it's greater than 1
-      this.cartItems[itemIndex].quantity -= 1;
+    if (this.cartItems[itemIndex].quantity == 1 && !decrease) {
+      this.cartItems[itemIndex].quantity += 1;
+      this.toastr.success('Added 1 quantity');
       this.userService.updateCartItemQuantity(product, this.cartItems[itemIndex].quantity).then(res => {
+        this.getCart()
+        this.userService.getCartCount()
+      }).catch(err => {
+        console.error('Error updating product quantity in Firestore:', err);
+      });
+    } else if(this.cartItems[itemIndex].quantity > 1){
+      if (decrease) {
+        this.cartItems[itemIndex].quantity -= 1;
         this.toastr.warning('Removed 1 quantity');
-
+      } else {
+        this.cartItems[itemIndex].quantity += 1;
+        this.toastr.success('Added 1 quantity');
+      }
+      this.userService.updateCartItemQuantity(product, this.cartItems[itemIndex].quantity).then(res => {
+        this.getCart()
         this.userService.getCartCount()
       }).catch(err => {
         console.error('Error updating product quantity in Firestore:', err);
@@ -97,8 +93,8 @@ removeProduct(product: any): void {
 
   placeOrder(){
 
-    console.log(' this.cartItems:', this.cartItems.length);
-    console.log('cart :',this.cartItems );
+    // console.log(' this.cartItems:', this.cartItems.length);
+    // console.log('cart :',this.cartItems );
     const userPhone = localStorage.getItem('phone');
 
     if(this.cartItems.length){

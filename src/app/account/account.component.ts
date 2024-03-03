@@ -34,10 +34,10 @@ export class AccountComponent {
   getUser(){
     
     this.userService.getUser().then((user) => {
-      console.log('user :', user);
+      // console.log('user :', user);
       this.user = user
       if(!user.email){
-        console.log('no email');
+        // console.log('no email');
         // this.ModelReference = this.ngbModalService.open(this.updateEmailModal);
         this.ModelReference = this.ngbModalService.open(this.updateEmailModal, {
           backdrop: 'static',
@@ -52,8 +52,8 @@ export class AccountComponent {
 
 
   updateEmail(){
-    console.log('this.userEmail :', this.userEmail);
-    console.log('this.userName :', this.userName);
+    // console.log('this.userEmail :', this.userEmail);
+    // console.log('this.userName :', this.userName);
     let userData = {
       userEmail: this.userEmail,
       userName: this.userName

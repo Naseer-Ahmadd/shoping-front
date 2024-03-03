@@ -26,7 +26,6 @@ export class FooterComponent implements OnInit {
     const token = localStorage.getItem('token');
     if (token) {
       this.isLoggedin = true;
-      console.log('this.isLoggedin :', this.isLoggedin);
     }
 
   }

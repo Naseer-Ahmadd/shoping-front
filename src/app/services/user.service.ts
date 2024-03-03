@@ -49,9 +49,9 @@ export class UserService {
   }
   }
 
-  updateUserCart(cartItem: any): Promise<void> {
-    console.log(' update cart fn called:', );
-    return new Promise<void>((resolve, reject) => {
+  updateUserCart(cartItem: any): Promise<any> {
+  cartItem.quantity = 1
+    return new Promise<any>((resolve, reject) => {
       let userPhone = localStorage.getItem('phone');
       if (userPhone) {
         this.getUsers.doc(userPhone).get().then(doc => {
@@ -70,8 +70,7 @@ export class UserService {
             // Save the updated user data back to Firestore
             this.getUsers.doc(userPhone?.toString()).set(existingUserData)
               .then((res) => {
-                console.log('User cart updated in Firestore',res);
-                resolve();
+                resolve('SUCCESS');
               })
               .catch((error) => {
                 console.error('Error updating user cart in Firestore: ', error);

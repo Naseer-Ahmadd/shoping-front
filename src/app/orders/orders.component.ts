@@ -25,7 +25,18 @@ export class OrdersComponent {
 
   async getMyOrders(){
     this.myOrders =  await this.userService.getMyOrders()
-    console.log('this.myOrders :', this.myOrders);
+    // console.log('this.myOrders :', this.myOrders);
+    this.myOrders.sort((a, b) => {
+      const dateA = new Date(a?.orderDate || 0);
+      const dateB = new Date(b?.orderDate || 0);
+      if (!isNaN(dateA.getTime()) && !isNaN(dateB.getTime())) {
+        return dateB.getTime() - dateA.getTime();
+      } else {
+        // Handle cases where orderDate is not a valid date
+        return 0; // No change in order
+      }
+    });
+    
   }
 
 }

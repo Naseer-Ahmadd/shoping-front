@@ -19,13 +19,11 @@
                 <p class="card-text">{{ item.unit }}</p>
                 <p class="card-text"><strong>Price:</strong> ₹{{ item.price }}</p>
                 <p class="card-text"><strong>Quantity:</strong> <b> {{ item.quantity }}</b></p>
-                <button class="btn btn-danger" (click)="removeProduct(item)">Remove Product</button>
-
-                <!-- <div>
-                  <button class="btn btn-success" (click)="decreaseQuantity(item)">-</button>
-                  <span class="mx-2">{{ cartCount }}</span>
-                  <button class="btn btn-success" (click)="increaseQuantity(item)">+</button>
-                </div> -->
+                <div>
+                  <button class="btn btn-success" (click)="updateQuantity(item , true)">-</button>
+                  <span class="mx-2"><strong>{{ item.quantity }}</strong></span>
+                  <button class="btn btn-success" (click)="updateQuantity(item , false)">+</button>
+                </div>
               </div>
             </div>
           </div>
@@ -42,7 +40,7 @@
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 Total Price
-                <span class="badge bg-success">₹ {{ cartTotalPrice }}</span>
+                <span class="badge bg-success">₹ {{ cartTotalPrice.toFixed(2) }}</span>
               </li><br>
             </ul>
             <div class="text-center mt-3">

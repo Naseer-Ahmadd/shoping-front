@@ -11,7 +11,7 @@
             <h5 class="card-title">Order Date: {{order?.orderDate | date}}</h5>
             <p class="card-text">Status: {{order?.status}}</p>
             <p class="card-text">Delivery By: {{order?.delivery_by}}</p>
-            <p class="card-text">Total Price: {{order?.totalPrice}}</p>
+            <p class="card-text">Total Price: <strong>{{order?.totalPrice}}</strong></p>
 
             <!-- Items in the Order -->
             <ul class="list-group"  *ngFor="let item of order?.items; let i = index">

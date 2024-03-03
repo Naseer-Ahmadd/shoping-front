@@ -23,34 +23,36 @@ export class AuthserviceService {
                   let formattedRes = res;
                       let returnData;
                       if (formattedRes.status == 'OK') {
-                        console.log(' innnn:', );
+                        // console.log(' innnn:', );
                         returnData = {
                           "country_code": "",
                           "city": "",
                           "zip_code": "",
                           "latitude": position.coords.latitude,
                           "longitude": position.coords.longitude,
+                          "formatted_address":""
                         };
-                        formattedRes.results.forEach(function (element) {
-                          element.address_components.forEach(function (element2) {
-                            element2.types.forEach(function (element3) {
-                              switch (element3) {
-                                case 'postal_code':
-                                  returnData['zip_code'] = element2.long_name;
-                                  break;
-                                case 'administrative_area_level_1':
-                                  returnData['state'] = element2.long_name;
-                                  break;
-                                case 'locality':
-                                  returnData['city'] = element2.long_name;
-                                  break;
-                                case 'country':
-                                  returnData['country_code'] = returnData['country_code'] || element2.short_name;
-                                  break;
-                              }
-                            })
-                          });
-                        });
+                        returnData['formatted_address'] = formattedRes.results[0].formatted_address
+                        // formattedRes.results.forEach(function (element) {
+                        //   element.address_components.forEach(function (element2) {
+                        //     element2.types.forEach(function (element3) {
+                        //       switch (element3) {
+                        //         case 'postal_code':
+                        //           returnData['zip_code'] = element2.long_name;
+                        //           break;
+                        //         case 'administrative_area_level_1':
+                        //           returnData['state'] = element2.long_name;
+                        //           break;
+                        //         case 'locality':
+                        //           returnData['city'] = element2.long_name;
+                        //           break;
+                        //         case 'country':
+                        //           returnData['country_code'] = returnData['country_code'] || element2.short_name;
+                        //           break;
+                        //       }
+                        //     })
+                        //   });
+                        // });
                         observer.next(returnData);
                         observer.complete();
                       } else {
