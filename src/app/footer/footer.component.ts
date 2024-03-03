@@ -14,13 +14,19 @@ declare var $: any;
 })
 export class FooterComponent implements OnInit {
   isLoggedin: boolean =false;
+  cartCount: number;
 
   constructor(
     private authService: AuthserviceService,
     private toastrService: ToastrService,
     private router: Router,
     private userService: UserService
-  ) { }
+  ) { 
+    this.userService.getCartCount()
+    this.userService.cartCount$.subscribe((count) => {
+      this.cartCount = count;
+    });
+  }
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');

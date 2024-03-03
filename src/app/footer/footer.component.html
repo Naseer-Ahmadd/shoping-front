@@ -15,6 +15,7 @@
                 <span class="material-symbols-outlined">
                     shopping_cart
                 </span>
+                <span *ngIf="cartCount > 0" class="cart-item-count">{{ cartCount }}</span>
             </a>
             <a  class="item " aria-current="page" (click)="navigateToAccount()">
                 <span class="material-symbols-outlined">

@@ -1,0 +1,18 @@
+
+
+  /* Styles for circular cart count */
+.cart-item-count {
+    position: absolute;
+    /* top: 0;
+    right: 0; */
+    transform: translate(50%, -50%);
+    display: inline-block;
+    background-color: #0C831F; /* Choose your desired background color */
+    color: #fff; /* Choose your desired text color */
+    border-radius: 50%; /* Create a circular shape */
+    padding: 0.2rem 0.5rem; /* Adjust padding as needed */
+    font-size: 0.8rem; /* Adjust font size as needed */
+    font-weight: bold; /* Optionally make the text bold */
+    margin-left: -14px;
+  }
+  
