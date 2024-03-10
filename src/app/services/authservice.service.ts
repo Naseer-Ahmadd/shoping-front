@@ -86,7 +86,7 @@ export class AuthserviceService {
       ',' +
       lon +
       '&' +
-      'key=AIzaSyCDqnApGzLPg4nLW5DrTC0hy7kCMnFLqxo';
+      'key=AIzaSyBNggbMh5eUxti9tlUOq087Rl45q3Lgeuo'; //MY KEY
     return this.http.get(url);
   }
 
