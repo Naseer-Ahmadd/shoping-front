@@ -20,6 +20,7 @@ export class AuthserviceService {
               )
                 .subscribe(
                   (res: any) => {''
+                  console.log('resssss :', res);
                   let formattedRes = res;
                       let returnData;
                       if (formattedRes.status == 'OK') {
@@ -86,7 +87,7 @@ export class AuthserviceService {
       ',' +
       lon +
       '&' +
-      'key=AIzaSyBNggbMh5eUxti9tlUOq087Rl45q3Lgeuo'; //MY KEY
+      'key='; //MY KEY
     return this.http.get(url);
   }
 
