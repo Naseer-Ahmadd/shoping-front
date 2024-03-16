@@ -1,0 +1,4 @@
+.dropdown-menu {
+    /* position: fixed; Keeps the dropdown menu fixed */
+    z-index: 9; /* Ensures the dropdown menu stays behind other elements */
+}

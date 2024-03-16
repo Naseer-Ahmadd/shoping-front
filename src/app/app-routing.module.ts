@@ -26,15 +26,17 @@ const routes: Routes = [
   {
     path: 'cart',
     loadChildren: ()=> import('./cart/cart.module').then(m=>m.CartModule),
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'checkout',
-    component: CheckoutComponent
+    component: CheckoutComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'orders',
-    component: OrdersComponent
+    component: OrdersComponent,
+    canActivate: [AuthGuard]
   }
 
 ];

@@ -32,3 +32,9 @@
     display: block;
     margin-bottom: 15px;
   }
+
+
+.option-link.active {
+    color: #0C831F; /* Change color for active link */
+    font-weight: bold; /* Make active link bold */
+}

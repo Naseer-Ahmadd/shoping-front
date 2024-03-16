@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
 })
 export class OrdersComponent {
   myOrders:any;
+  dropdownOpen: boolean = false;
+  sortedOrders: any[] = [];
   constructor(private router: Router, private userService: UserService, private toastr: ToastrService){
 
   }
@@ -37,6 +39,14 @@ export class OrdersComponent {
       }
     });
     
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+  sortBy(type){
+  this.sortedOrders = this.myOrders.filter(order => order.status === type);
+  this.dropdownOpen = false
   }
 
 }

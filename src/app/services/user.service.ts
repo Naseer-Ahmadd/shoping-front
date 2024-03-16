@@ -206,7 +206,7 @@ export class UserService {
   async getCartCount() {
     try {
       const user = await this.getUser();
-      console.log('user serr:', user);
+      // console.log('user serr:', user);
   
       // Calculate cart count from the sum of quantities
       const cartCount = user.cart.reduce((count, cartItem) => count + cartItem.quantity, 0);

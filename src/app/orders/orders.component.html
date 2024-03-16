@@ -1,9 +1,28 @@
 <div class="container mt-5">
-    <h1 class="mb-4">My Orders</h1>
-    <div *ngIf="!myOrders?.length"class="alert alert-info mt-3 text-center" role="alert">
+    <div class="row">
+        <div class="col">
+            <h1 class="mb-4">My Orders</h1>
+        </div>
+        <div class="col text-right">
+            <!-- Add an empty column to push the dropdown to the right -->
+        </div>
+        <div class="col-auto text-right"> <!-- This column will contain the dropdown -->
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" (click)="toggleDropdown()">
+                    Status
+                </button>
+                <div class="dropdown-menu" [class.show]="dropdownOpen" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" (click)="sortBy('Pending')">Pending</a>
+                    <a class="dropdown-item" (click)="sortBy('Shipped')">Shipped</a>
+                    <a class="dropdown-item" (click)="sortBy('Delivered')">Delivered</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!myOrders?.length" class="alert alert-info mt-3 text-center" role="alert">
         No Order Found. Please add items to your cart.
-      </div>
-    <div class="card mb-3" *ngFor="let order of myOrders">
+    </div>
+    <div class="card mb-3" *ngFor="let order of (sortedOrders.length > 0 ? sortedOrders : myOrders)">
         <div class="card-header">
             Order Id: <b>{{ order ? order.order_id : 'Loading...' }}</b>
         </div>
@@ -12,10 +31,7 @@
             <p class="card-text">Status: {{order?.status}}</p>
             <p class="card-text">Delivery By: {{order?.delivery_by}}</p>
             <p class="card-text">Total Price: <strong>{{order?.totalPrice}}</strong></p>
-
-            <!-- Items in the Order -->
             <ul class="list-group"  *ngFor="let item of order?.items; let i = index">
-                <!-- Example Item 1 -->
                 <li class="list-group-item">
                     <div class="row">
                         <div class="col-md-2">
@@ -29,12 +45,7 @@
                         </div>
                     </div>
                 </li>
-
-               
-                <!-- Add more items dynamically based on your data -->
             </ul>
         </div>
     </div>
-
-
 </div>

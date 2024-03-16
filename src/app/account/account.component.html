@@ -1,11 +1,10 @@
 <div class="container-full">
     <div class="dashboard-container">
       <div class="dashboard-options">
-        <a routerLink="/account/dashboard" class="option-link">My Dashboard</a>
-        <a href="#" class="option-link">My Addresses</a>
-        <a routerLink="/account/profile" class="option-link">My Profile</a>
-        <a routerLink="/orders" class="option-link">My Orders</a>
-        <a (click)="logout()" class="option-link">Logout</a>
+        <a routerLink="/account/dashboard" routerLinkActive="active" class="option-link">My Dashboard</a>
+        <a routerLink="/account/profile" routerLinkActive="active" class="option-link">My Profile</a>
+        <a routerLink="/orders"routerLinkActive="active"  class="option-link">My Orders</a>
+        <!-- <a (click)="logout()" class="option-link">Logout</a> -->
       </div>
       <div class="dashboard-content">
         <!-- Content for the dashboard goes here -->

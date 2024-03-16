@@ -13,3 +13,10 @@
     height: 0;
     padding-bottom: calc(1410 / 7680 * 100%); /* Calculate the aspect ratio (height / width) and set the padding-bottom accordingly */
   }
+
+.prod-name{
+  /* max-width: 230px; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
