@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './services/gaurd/auth.guard';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { OrdersComponent } from './orders/orders.component';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 const routes: Routes = [
 
@@ -37,6 +39,16 @@ const routes: Routes = [
     path: 'orders',
     component: OrdersComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
+    path: 'contact-us',
+    component: ContactUsComponent,
+    // canActivate: [AuthGuard]
   }
 
 ];

@@ -3,6 +3,7 @@ import { AuthserviceService } from '../services/authservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { CategoriesService } from '../services/categories.service';
 declare var $: any;
 
 
@@ -15,12 +16,14 @@ declare var $: any;
 export class FooterComponent implements OnInit {
   isLoggedin: boolean =false;
   cartCount: number;
+  allCategories: any;
 
   constructor(
     private authService: AuthserviceService,
     private toastrService: ToastrService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private catService: CategoriesService
   ) { 
     this.userService.getCartCount()
     this.userService.cartCount$.subscribe((count) => {
@@ -33,7 +36,26 @@ export class FooterComponent implements OnInit {
     if (token) {
       this.isLoggedin = true;
     }
+    this.getCategories()
+  }
 
+  getCategories(){
+    this.catService.getCategories()
+     .then((categories) => {
+       this.allCategories = categories;
+     })
+     .catch((error: any) => {
+     console.log('error :', error);
+     });
+   }
+ 
+ 
+   browseCat(link){
+    const l0CatMatch = link.match(/l0_cat=(\d+)/);
+    if (l0CatMatch && l0CatMatch[1]) {
+      const l0CatNumber = l0CatMatch[1];
+      this.router.navigate([ '/products'], { queryParams: { catId: Number(l0CatNumber) } });
+    }
   }
 
   checkClass(){

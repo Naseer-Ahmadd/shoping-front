@@ -1,0 +1,13 @@
+.banner {
+    background-image: url('/assets/images/contact-us.png');
+    background-size: cover;
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+    height: 370px;
+    border-radius: 10px;
+    margin: 40px;
+}
+.social-icons {
+    font-size: 24px;
+}
